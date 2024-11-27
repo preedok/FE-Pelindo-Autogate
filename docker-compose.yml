@@ -1,0 +1,38 @@
+version: '3'
+services:
+  web:
+    image: ther12k/autogatepnkmonitoring
+    build: .
+    container_name: autogatepnkmonitoring-dev
+    environment:
+      - API_URL=http://api:8080/api  # Use the service name 'api' as the hostname
+    ports:
+      - "8800:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx-logs:/var/log/nginx
+      - ./images:/images
+      - ./logs:/logs
+    depends_on:
+      - api
+
+  api:
+    image: ther12k/autogatepnkapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+      - TZ=Asia/Jakarta
+    container_name: autogatepnkapi-dev
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./logs:/logs"
+      - "./docker/appsettings.development.json:/app/appsettings.development.json:ro"
+      - "./docker/appsettings.production.json:/app/appsettings.production.json:ro"
+  # seq:
+  #   image: datalust/seq:latest
+  #   container_name: seq
+  #   restart: unless-stopped
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #   ports:
+  #     - "5341:80"
