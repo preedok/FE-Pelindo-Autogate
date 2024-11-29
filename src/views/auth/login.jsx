@@ -8,6 +8,7 @@ import style from "./style.module.css";
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = () => {
     setIsLoading(true);
     const username = "autogate";
