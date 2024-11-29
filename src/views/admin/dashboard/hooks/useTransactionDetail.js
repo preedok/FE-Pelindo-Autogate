@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../../../../service/api";
-const username = process.env.REACT_APP_API_USERNAME;
-const password = process.env.REACT_APP_API_PASSWORD;
+const username = 'autogate';
+const password = '#m4ritime6atew4y';
 const encodedCredentials = btoa(`${username}:${password}`);
 const useTransactionDetail = () => {
   const [loading, setLoading] = useState(false);
