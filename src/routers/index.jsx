@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Login from "../views/auth/login";
 // import Log from "../views/admin/log/log";
-import Dashboard from "../views/admin/dashboard/dashboard";
+import Dashboard from "../views/admin/dashboard";
 // import swal from "sweetalert";
 import Layout from "../layout/layout";
 // import Users from "../views/admin/users/users";
