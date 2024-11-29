@@ -98,9 +98,6 @@ const Atensi = () => {
         handleOpenDetail,
         handleCloseDetail,
     } = useAtensiDetail();
-
-
-
     const columns = [
         { id: 'no', label: 'No', minWidth: 80 },
         { id: 'ei', label: 'E/I', minWidth: 80 },
@@ -166,7 +163,6 @@ const Atensi = () => {
             )
         }
     ];
-
     return (
         <>
             <Helmet>

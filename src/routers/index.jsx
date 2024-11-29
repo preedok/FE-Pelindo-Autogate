@@ -7,22 +7,24 @@ import {
     useLocation,
 } from "react-router-dom";
 import Login from "../views/auth/login";
-import Log from "../views/admin/log/log";
+// import Log from "../views/admin/log/log";
 import Dashboard from "../views/admin/dashboard/dashboard";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 import Layout from "../layout/layout";
-import Users from "../views/admin/users/users";
-import Setting from "../views/admin/setting/setting";
-import Live from '../views/admin/monitoring/live/live'
-import Transaction from "../views/admin/monitoring/transaction/transaction";
-import CheckPoint from "../views/admin/monitoring/checkpoint/checkpoint";
-import Devices from "../views/admin/monitoring/devices/devices";
-import Portal from "../views/admin/monitoring/portal/portal";
-import Search from '../views/admin/search/search'
-import Arsip from "../views/admin/arsip";
-import Atensi from "../views/admin/atensiP2";
-import HistoryPage from "../views/admin/historypage";
-import CCTVMonitor from "../views/admin/CCTV";
+// import Users from "../views/admin/users/users";
+// import Setting from "../views/admin/setting/setting";
+// import Live from '../views/admin/monitoring/live/live'
+// import Transaction from "../views/admin/monitoring/transaction/transaction";
+// import CheckPoint from "../views/admin/monitoring/checkpoint/checkpoint";
+// import Devices from "../views/admin/monitoring/devices/devices";
+// import Portal from "../views/admin/monitoring/portal/portal";
+// import Search from '../views/admin/search/search'
+// import Arsip from "../views/admin/arsip";
+// import Atensi from "../views/admin/atensiP2";
+// import HistoryPage from "../views/admin/historypage";
+// import CCTVMonitor from "../views/admin/CCTV";
+import Transaction from '../views/admin/transaction'
+
 // Scroll to Top when switching page
 const ScrollToTop = ({ children }) => {
     const { pathname } = useLocation();
@@ -63,7 +65,10 @@ const Router = () => {
                         path="/"
                         element={token ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}
                     />
-                    <Route path="/log" element={<Layout />}>
+                     <Route path="/transaction" element={<Layout />}>
+                        <Route index element={<Auth> <Transaction /> </Auth>} />
+                    </Route>
+                    {/* <Route path="/log" element={<Layout />}>
                         <Route index element={<Auth> <Log /> </Auth>} />
                     </Route>
                     <Route path="/user" element={<Layout />}>
@@ -101,7 +106,7 @@ const Router = () => {
                     </Route>
                     <Route path="/atensi" element={<Layout />}>
                         <Route index element={<Auth> <Atensi /> </Auth>} />
-                    </Route>
+                    </Route> */}
                 </Routes>
             </ScrollToTop>
         </BrowserRouter>

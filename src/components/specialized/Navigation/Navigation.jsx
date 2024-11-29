@@ -70,10 +70,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     };
     const navigate = useNavigate();
     // const devices = import.meta.env.VITE_REACT_APP_API_URL_DEVICES
-
     const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(false);
-
     const handleSearch = (event) => {
         event.preventDefault();
         setLoading(true);
@@ -82,7 +80,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             setLoading(false); 
         }, 1000); 
     };
-
     const onLogout = () => {
         Swal.fire({
             title: 'Logout Confirmation',
@@ -119,11 +116,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     return (
         <>
             {/* top bar search */}
-            <nav className={`fixed w-full bg-[#ffffff] shadow-md transition-all duration-500 ease-out right-0`} style={{ zIndex: 99 }}>
+            <nav className={`fixed w-full py-5 bg-[#ffffff] shadow-md transition-all duration-500 ease-out right-0`} style={{ zIndex: 99 }}>
                 <div className="px-3 py-4 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
                         <form onSubmit={handleSearch} className="flex items-center gap-2 max-w-md ml-auto">
-                            <input
+                            {/* <input
                                 type="text"
                                 id="myInput"
                                 name="myInput"
@@ -139,7 +136,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 startIcon={<ContentPasteSearchIcon fontSize='small' className='ms-2' />}
                             >
                                 {loading ? 'Loading' : 'Search'}
-                            </Button>
+                            </Button> */}
                         </form>
                     </div>
                 </div>
@@ -208,7 +205,17 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
                             </p>
                         </li>
-                        <li onClick={() => navigate('/cctv')} style={{ cursor: 'pointer' }}>
+                        <li onClick={() => navigate('/transaction')} style={{ cursor: 'pointer' }}>
+                            <p onClick={() => handleMenuClick('transaction')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'transaction' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
+                                }`}>
+                                 <BackupTableIcon />
+                                {isSidebarOpen ? (
+                                    <Link to='/transaction'>Transaction</Link>
+                                ) : null}
+
+                            </p>
+                        </li>
+                        {/* <li onClick={() => navigate('/cctv')} style={{ cursor: 'pointer' }}>
                             <p onClick={() => handleMenuClick('cctv')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'cctv' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                 }`}>
                                 <CameraAltIcon/>
@@ -237,7 +244,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 ) : null}
 
                             </p>
-                        </li>
+                        </li> */}
                         
                         {/* <li onClick={() => navigate('/activitylist')} style={{ cursor: 'pointer' }}>
                             <p onClick={() => handleMenuClick('activitylist')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'activitylist' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
@@ -249,7 +256,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
                             </p>
                         </li> */}
-                        {isAdminP2 ? (
+                        {/* {isAdminP2 ? (
                             <li onClick={() => navigate('/atensi')} style={{ cursor: 'pointer' }}>
                                 <p onClick={() => handleMenuClick('atensi')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'atensi' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                     }`}>
@@ -261,7 +268,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 </p>
                             </li>
                     
-                        ) : null}
+                        ) : null} */}
                         
 
                         {/* <li onClick={handleMenuMonitoring} style={{ cursor: 'pointer' }}>
@@ -394,7 +401,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 </ul>
                             )}
                         </li> */}
-                        {['ADMINBC', 'CUSMOD', 'P2'].some(role => currentUserRole.includes(role)) && (
+                        {/* {['ADMINBC', 'CUSMOD', 'P2'].some(role => currentUserRole.includes(role)) && (
                             <li onClick={() => navigate('/user')} style={{ cursor: 'pointer' }}>
                                 <p onClick={() => handleMenuClick('user')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'user' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                     }`}>
@@ -404,7 +411,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                     ) : null}
                                 </p>
                             </li>
-                        )}
+                        )} */}
                         {/* {isADMINISTRATOR ? (
                             <li onClick={() => navigate('/user')} style={{ cursor: 'pointer' }}>
                                 <p onClick={() => handleMenuClick('user')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'user' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
