@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../../service/api";
 
 export const useDashboardTransactions = (lanePosition) => {
   const [transactions, setTransactions] = useState([]);
@@ -10,8 +10,8 @@ export const useDashboardTransactions = (lanePosition) => {
     const fetchDashboardTransactions = async () => {
       try {
         setLoading(true);
-        const response = await axios.post(
-          "https://ptosc-integration-api.pelindo.co.id/AMS/GetAMSDashboardTransaction",
+        const response = await api.post(
+          "/GetAMSDashboardTransaction",
           { lanePosition },
           {
             headers: {
@@ -44,7 +44,6 @@ export const useDashboardTransactions = (lanePosition) => {
 
   return { transactions, loading, error };
 };
-
 export const useDashboardTransactionDetails = (noTiket, options = {}) => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,8 +62,8 @@ export const useDashboardTransactionDetails = (noTiket, options = {}) => {
     const fetchTransactionDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.post(
-          "https://ptosc-integration-api.pelindo.co.id/AMS/GetAMSDashboardDetailDT",
+        const response = await api.post(
+          "/GetAMSDashboardDetailDT",
           {
             noTiket,
             length,
