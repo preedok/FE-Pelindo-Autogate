@@ -1,6 +1,8 @@
 import { useState } from "react";
 import api from "../../../../service/api";
-
+const username = process.env.REACT_APP_API_USERNAME;
+const password = process.env.REACT_APP_API_PASSWORD;
+const encodedCredentials = btoa(`${username}:${password}`);
 const useLongStayCargo = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,7 +35,8 @@ const useLongStayCargo = () => {
         },
         {
           headers: {
-            Authorization: "Basic " + btoa("<username>:<password>"),
+            'Authorization': `Basic ${encodedCredentials}`,
+            'Content-Type': 'application/json',
           },
         }
       );

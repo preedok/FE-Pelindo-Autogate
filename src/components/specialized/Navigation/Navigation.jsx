@@ -194,7 +194,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         </div>
                     )}
 
-                    <ul className="space-y-2 font-medium mt-6 ms-2 ">
+                    <ul className="space-y-2 font-medium mt-6 mx-3 ">
                         <li onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
                             <p onClick={() => handleMenuClick('dashboard')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'dashboard' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                 }`}>
@@ -205,7 +205,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
                             </p>
                         </li>
-                        <li onClick={() => navigate('/transaction')} style={{ cursor: 'pointer' }}>
+                        {/* <li onClick={() => navigate('/transaction')} style={{ cursor: 'pointer' }}>
                             <p onClick={() => handleMenuClick('transaction')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'transaction' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                 }`}>
                                  <BackupTableIcon />
@@ -214,7 +214,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 ) : null}
 
                             </p>
-                        </li>
+                        </li> */}
                         {/* <li onClick={() => navigate('/cctv')} style={{ cursor: 'pointer' }}>
                             <p onClick={() => handleMenuClick('cctv')} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === 'cctv' ? 'bg-[#26ACFA] dark:bg-[#26ACFA] text-white' : 'hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group'
                                 }`}>
