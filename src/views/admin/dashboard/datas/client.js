@@ -1,15 +1,14 @@
 import axios from "axios";
 
-const BASE_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
-const USERNAME = "autogate";
-const PASSWORD = "#m4ritime6atew4y";
+const BASE_URL = import.meta.env.REACT_APP_BASE_URL;
+const USERNAME = import.meta.env.REACT_APP_USERNAME
+const PASSWORD = import.meta.env.REACT_APP_PASSWORD
 
 export const dashboardClient = {
   createBasicAuthHeader(username, password) {
     const credentials = btoa(`${username}:${password}`);
     return `Basic ${credentials}`;
   },
-
   async getDashboardTransaction(lanePosition) {
     try {
       const response = await axios.post(
@@ -28,7 +27,6 @@ export const dashboardClient = {
       throw error;
     }
   },
-
   async getDashboardTransactionDetail(params) {
     try {
       const response = await axios.post(

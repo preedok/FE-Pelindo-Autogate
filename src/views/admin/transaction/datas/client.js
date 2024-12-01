@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
-const USERNAME = "autogate";
-const PASSWORD = "#m4ritime6atew4y";
+const BASE_URL = import.meta.env.REACT_APP_BASE_URL;
+const USERNAME = import.meta.env.REACT_APP_USERNAME
+const PASSWORD = import.meta.env.REACT_APP_PASSWORD
 
 export const transactionClient = {
   createBasicAuthHeader(username, password) {

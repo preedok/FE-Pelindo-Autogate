@@ -3,12 +3,9 @@ import { devtools } from 'zustand/middleware';
 import { gateClient } from './client';
 
 export const useGateStore = create(devtools((set) => ({
-  // Gate Transaction State
   gateTransaction: null,
   gateTransactionLoading: false,
   gateTransactionError: null,
-
-  // Process Gate Transaction (In or Out)
   processGateTransaction: async (params) => {
     set({ 
       gateTransactionLoading: true, 
@@ -29,8 +26,6 @@ export const useGateStore = create(devtools((set) => ({
       throw error;
     }
   },
-
-  // Reset gate transaction state
   resetGateTransaction: () => set({ 
     gateTransaction: null, 
     gateTransactionError: null 
