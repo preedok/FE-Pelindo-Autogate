@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.REACT_APP_BASE_URL;
-const USERNAME = import.meta.env.REACT_APP_USERNAME
-const PASSWORD = import.meta.env.REACT_APP_PASSWORD
+const BASE_URL = 'https://ptosc-integration-api.pelindo.co.id/AMS';
+const USERNAME = 'autogate'
+const PASSWORD = '#m4ritime6atew4y'
 
 export const dashboardClient = {
   createBasicAuthHeader(username, password) {
@@ -65,7 +65,7 @@ export const fetchDashboardData = async () => {
       "IN-1"
     );
     const detailParams = {
-      noTiket: "example-ticket",
+      noTiket: "4100",
       length: 10,
       start: 0,
       draw: 1,

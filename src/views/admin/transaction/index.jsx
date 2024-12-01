@@ -13,19 +13,20 @@ const TransactionPage = () => {
     fetchHeaderTransactions,
     fetchDetailTransactions,
   } = useTransactionStore();
+
   const handleRowClick = (ticket) => {
     setSelectedTicket(ticket);
     fetchDetailTransactions({
       branchCode: "YOUR_BRANCH_CODE",
       terminalCode: "YOUR_TERMINAL_CODE",
       noTiket: ticket.NO_TIKET,
-      username: "YOUR_USERNAME",
-      password: "YOUR_PASSWORD",
     });
   };
+
   const handleCloseDetailModal = () => {
     setSelectedTicket(null);
   };
+
   return (
     <section className="p-6 mx-5 mt-[78px] rounded-lg w-full">
       <Breadcrombss menu={"Transaction"} submenu={"Sub Transaction"} />
