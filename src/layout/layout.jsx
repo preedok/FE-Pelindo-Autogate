@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "../components/specialized/Navigation/Navigation";
+import Sidebar from "../components/specialized/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
