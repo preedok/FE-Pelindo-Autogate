@@ -183,7 +183,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 ) : null}
               </p>
             </li>
-            <li onClick={() => navigate("/gate")} style={{ cursor: "pointer" }}>
+            {/* <li onClick={() => navigate("/gate")} style={{ cursor: "pointer" }}>
               <p
                 onClick={() => handleMenuClick("gate")}
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
@@ -195,7 +195,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <FenceIcon />
                 {isSidebarOpen ? <Link to="/gate">Gate</Link> : null}
               </p>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
