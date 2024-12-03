@@ -33,8 +33,8 @@ const style = {
 const DashboardTransaction = () => {
   const { dashboardTransaction, fetchDashboardTransaction } = useStore();
   const [lanePosition, setLanePosition] = useState("");
-  const [selectedTicket, setSelectedTicket] = useState(null); 
-  const [openDetailModal, setOpenDetailModal] = useState(false); 
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [openDetailModal, setOpenDetailModal] = useState(false);
 
   useEffect(() => {
     fetchDashboardTransaction("IKTIN01");
@@ -46,7 +46,7 @@ const DashboardTransaction = () => {
 
   const handleDetailClick = (noTiket) => {
     setSelectedTicket(noTiket);
-    setOpenDetailModal(true); 
+    setOpenDetailModal(true);
   };
 
   const handleCloseDetailModal = () => {
@@ -78,7 +78,7 @@ const DashboardTransaction = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow style={{backgroundColor:'#CAF4FF'}}>
               <TableCell>No Tiket</TableCell>
               <TableCell>Jumlah VIN</TableCell>
               <TableCell>No UID</TableCell>

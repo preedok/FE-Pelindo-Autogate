@@ -50,7 +50,7 @@ const TransactionDetail = ({ noTiket, onClose }) => {
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow style={{backgroundColor:'#CAF4FF'}}>
                 <TableCell>No VIN</TableCell>
                 <TableCell>Kategori Car</TableCell>
                 <TableCell>Merk Car</TableCell>

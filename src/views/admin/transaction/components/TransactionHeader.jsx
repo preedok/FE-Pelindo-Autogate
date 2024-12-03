@@ -9,7 +9,6 @@ import {
   Paper,
   Button,
   Modal,
-  Typography,
   TextField,
   Box,
 } from "@mui/material";
@@ -35,7 +34,6 @@ const TransactionHeader = () => {
   const filteredTransactions = transactionHeader.filter((transaction) =>
     transaction.NO_TIKET.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   return (
     <div>
       <Box sx={{ mb: 2 }}>
@@ -50,19 +48,33 @@ const TransactionHeader = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>No Tiket</TableCell>
+            <TableRow style={{ backgroundColor: "#CAF4FF" }}>
+              <TableCell>No Pol</TableCell>
+              <TableCell>No Gate In</TableCell>
               <TableCell>Tanggal Gate In</TableCell>
+              <TableCell>No Gate Out</TableCell>
+              <TableCell>Tanggal Gate Out</TableCell>
+              <TableCell>No Tiket</TableCell>
               <TableCell>Jumlah VIN</TableCell>
+              <TableCell>Tipe Doc BC</TableCell>
+              <TableCell>Nama Doc BC</TableCell>
+              <TableCell>Keterangan</TableCell>
               <TableCell>Aksi</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredTransactions.map((transaction) => (
               <TableRow key={transaction.NO_TIKET}>
-                <TableCell>{transaction.NO_TIKET}</TableCell>
+                <TableCell>{transaction.NOPOL}</TableCell>
+                <TableCell>{transaction.NO_GATE_IN}</TableCell>
                 <TableCell>{transaction.TGL_GATE_IN}</TableCell>
+                <TableCell>{transaction.NO_GATE_OUT || "N/A"}</TableCell>
+                <TableCell>{transaction.TGL_GATE_OUT || "N/A"}</TableCell>
+                <TableCell>{transaction.NO_TIKET}</TableCell>
                 <TableCell>{transaction.JUMLAH_VIN}</TableCell>
+                <TableCell>{transaction.TIPE_DOC_BC || "N/A"}</TableCell>
+                <TableCell>{transaction.NAMA_DOC_BC || "N/A"}</TableCell>
+                <TableCell>{transaction.KETERANGAN || "N/A"}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
