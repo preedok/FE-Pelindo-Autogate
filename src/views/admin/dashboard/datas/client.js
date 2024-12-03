@@ -1,84 +1,99 @@
-import axios from "axios";
 
-const BASE_URL = 'https://ptosc-integration-api.pelindo.co.id/AMS';
-const USERNAME = 'autogate'
-const PASSWORD = '#m4ritime6atew4y'
+const API_BASE_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
 
-export const dashboardClient = {
-  createBasicAuthHeader(username, password) {
-    const credentials = btoa(`${username}:${password}`);
-    return `Basic ${credentials}`;
-  },
-  async getDashboardTransaction(lanePosition) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/GetAMSDashboardTransaction`,
-        { lanePosition },
-        {
-          headers: {
-            Authorization: this.createBasicAuthHeader(USERNAME, PASSWORD),
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      this.handleError(error, "getDashboardTransaction");
-      throw error;
-    }
-  },
-  async getDashboardTransactionDetail(params) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/GetAMSDashboardDetailDT`,
-        params,
-        {
-          headers: {
-            Authorization: this.createBasicAuthHeader(USERNAME, PASSWORD),
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      this.handleError(error, "getDashboardTransactionDetail");
-      throw error;
-    }
-  },
-  handleError(error, methodName) {
-    console.group(`Error in ${methodName}`);
-    if (error.response) {
-      console.error("Response Data:", error.response.data);
-      console.error("Status Code:", error.response.status);
-      console.error("Response Headers:", error.response.headers);
-    } else if (error.request) {
-      console.error("No response received:", error.request);
-    } else {
-      console.error("Error Message:", error.message);
-    }
-    console.groupEnd();
-  },
+export const getDashboardTransaction = async (lanePosition) => {
+  const response = await fetch(`${API_BASE_URL}/GetAMSDashboardTransaction`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"), // Gantilah dengan username dan password yang valid
+    },
+    body: JSON.stringify({ lanePosition }),
+  });
+  return response.json();
 };
-export const fetchDashboardData = async () => {
-  try {
-    const transactionData = await dashboardClient.getDashboardTransaction(
-      "IN-1"
-    );
-    const detailParams = {
-      noTiket: "4100",
+
+export const getDashboardTransactionDetail = async (noTiket) => {
+  const response = await fetch(`${API_BASE_URL}/GetAMSDashboardDetailDT`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"),
+    },
+    body: JSON.stringify({
+      noTiket,
+      length: 5,
+      start: 0,
+      draw: 1,
+      search: "",
+      order: [{ column: 0, dir: "DESC", name: "NO_VIN" }],
+      columns: [
+        {
+          data: "NO_VIN",
+          name: "NO_VIN",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+      ],
+    }),
+  });
+  return response.json();
+};
+
+export const getLongStayCargo = async () => {
+  const response = await fetch(`${API_BASE_URL}/GetAMSLongStayCargoDT`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"), 
+    },
+    body: JSON.stringify({
+      branchCode: "4100",
+      terminalCode: "41001",
       length: 10,
       start: 0,
       draw: 1,
-    };
-    const detailData = await dashboardClient.getDashboardTransactionDetail(
-      detailParams
-    );
-    return {
-      transactionData,
-      detailData,
-    };
-  } catch (error) {
-    console.error("Failed to fetch dashboard data:", error);
-    throw error;
-  }
+      search: "",
+      order: [{ column: 2, dir: "DESC", name: "LAMA_TIMBUN" }],
+      columns: [
+        {
+          data: "NO_VIN",
+          name: "NO_VIN",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+        {
+          data: "NM_OWNER",
+          name: "NM_OWNER",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+        {
+          data: "LAMA_TIMBUN",
+          name: "LAMA_TIMBUN",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+        {
+          data: "NM_YBLOK",
+          name: "NM_YBLOK",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+        {
+          data: "NO_BL",
+          name: "NO_BL",
+          searchable: true,
+          orderable: true,
+          search: { value: "", regex: "" },
+        },
+      ],
+    }),
+  });
+  return response.json();
 };

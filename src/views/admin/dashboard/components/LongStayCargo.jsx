@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// src/views/dashboard/components/LongStayCargo.jsx
+import React, { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -7,74 +8,49 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Typography,
-  Box,
-  Chip,
 } from "@mui/material";
-import { differenceInDays } from "date-fns";
+import useStore from "../datas/store";
 
-const LongStayCargo = ({ data }) => {
-  const calculateDaysInStorage = (gateInDate) => {
-    if (!gateInDate) return 0;
-    const today = new Date();
-    const inDate = new Date(gateInDate);
-    return differenceInDays(today, inDate);
-  };
-  const getStorageStatus = (daysInStorage) => {
-    if (daysInStorage <= 7) return { label: "Normal", color: "success" };
-    if (daysInStorage <= 14) return { label: "Warning", color: "warning" };
-    return { label: "Critical", color: "error" };
-  };
+const LongStayCargo = () => {
+  const { longStayCargo, fetchLongStayCargo } = useStore();
+
+  useEffect(() => {
+    fetchLongStayCargo();
+  }, [fetchLongStayCargo]);
+
   return (
-    <Box>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>No VIN</TableCell>
+            <TableCell>Nama Owner</TableCell>
+            <TableCell>Lama Timbun</TableCell>
+            <TableCell>Nama Yblok</TableCell>
+            <TableCell>No BL</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {longStayCargo.length > 0 ? (
+            longStayCargo.map((cargo) => (
+              <TableRow key={cargo.NO_VIN}>
+                <TableCell>{cargo.NO_VIN}</TableCell>
+                <TableCell>{cargo.NAMA_OWNER}</TableCell>
+                <TableCell>{cargo.LAMA_TIMBUN}</TableCell>
+                <TableCell>{cargo.NAMA_YBLOK}</TableCell>
+                <TableCell>{cargo.NO_BL}</TableCell>
+              </TableRow>
+            ))
+          ) : (
             <TableRow>
-              <TableCell>VIN</TableCell>
-              <TableCell>Vehicle Details</TableCell>
-              <TableCell>Owner</TableCell>
-              <TableCell>Gate In Date</TableCell>
-              <TableCell>Days in Storage</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell colSpan={5} style={{ textAlign: "center" }}>
+                No Data Available
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((cargo, index) => {
-              const daysInStorage = calculateDaysInStorage(cargo.TGL_GATE_IN);
-              const storageStatus = getStorageStatus(daysInStorage);
-
-              return (
-                <TableRow key={index}>
-                  <TableCell>{cargo.NO_VIN}</TableCell>
-                  <TableCell>
-                    {cargo.MERK_CAR} {cargo.NM_UNIT}
-                    <Typography variant="body2" color="text.secondary">
-                      {cargo.JENIS_CAR}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    {cargo.NM_OWNER}
-                    <Typography variant="body2" color="text.secondary">
-                      {cargo.KD_ONWER}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>{cargo.TGL_GATE_IN}</TableCell>
-                  <TableCell>{daysInStorage} days</TableCell>
-                  <TableCell>
-                    <Chip
-                      label={storageStatus.label}
-                      color={storageStatus.color}
-                      size="small"
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

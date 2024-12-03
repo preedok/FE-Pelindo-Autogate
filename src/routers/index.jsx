@@ -4,7 +4,6 @@ import Login from "../views/auth/login";
 import Layout from "../layout/layout";
 import Dashboard from "../views/admin/dashboard";
 import Transaction from "../views/admin/transaction";
-import Gate from "../views/admin/gate";
 
 // Router Component
 const Router = () => {
@@ -18,10 +17,6 @@ const Router = () => {
         </Route>
         <Route path="/transaction" element={<Layout />}>
           <Route index element={<Transaction />} />
-        </Route>
-
-        <Route path="/gate" element={<Layout />}>
-          <Route index element={<Gate />} />
         </Route>
       </Routes>
     </BrowserRouter>

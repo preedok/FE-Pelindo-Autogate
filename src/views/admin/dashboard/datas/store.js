@@ -1,43 +1,30 @@
-import { create } from "zustand";
-import { dashboardClient } from "./client";
 
-export const useDashboardStore = create((set) => ({
-  transactions: [],
-  transactionDetails: [],
-  isLoading: false,
-  error: null,
+import { create } from "zustand";
+import {
+  getDashboardTransaction,
+  getDashboardTransactionDetail,
+  getLongStayCargo,
+} from "./client";
+
+const useStore = create((set) => ({
+  dashboardTransaction: [],
+  dashboardTransactionDetail: [],
+  longStayCargo: [],
+
   fetchDashboardTransaction: async (lanePosition) => {
-    set({ isLoading: true, error: null });
-    try {
-      const data = await dashboardClient.getDashboardTransaction(lanePosition);
-      set({
-        transactions: data.ResponseData || [],
-        isLoading: false,
-      });
-      return data;
-    } catch (error) {
-      set({
-        error: error.message,
-        isLoading: false,
-      });
-      throw error;
-    }
+    const data = await getDashboardTransaction(lanePosition);
+    set({ dashboardTransaction: data.ResponseData });
   },
-  fetchDashboardTransactionDetail: async (params) => {
-    set({ isLoading: true, error: null });
-    try {
-      const data = await dashboardClient.getDashboardTransactionDetail(params);
-      set({
-        transactionDetails: data.ResponseData || [],
-        isLoading: false,
-      });
-      return data;
-    } catch (error) {
-      set({
-        error: error.message,
-        isLoading: false,
-      });
-      throw error;
-    }
+
+  fetchDashboardTransactionDetail: async (noTiket) => {
+    const data = await getDashboardTransactionDetail(noTiket);
+    set({ dashboardTransactionDetail: data.ResponseData });
+  },
+
+  fetchLongStayCargo: async () => {
+    const data = await getLongStayCargo();
+    set({ longStayCargo: data.ResponseData });
   },
 }));
+
+export default useStore;
