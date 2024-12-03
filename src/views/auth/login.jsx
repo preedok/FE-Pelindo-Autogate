@@ -4,16 +4,20 @@ import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import style from "./style.module.css";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; 
 
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [showPassword, setShowPassword] = useState(false); 
   const handleLogin = () => {
     setIsLoading(true);
-    const username = "autogate";
-    const password = "#m4ritime6atew4y";
-    if (username === "autogate" && password === "#m4ritime6atew4y") {
+    const validUsername = "autogate";
+    const validPassword = "#m4ritime6atew4y";
+
+    if (username === validUsername && password === validPassword) {
       navigate("/dashboard");
     } else {
       Swal.fire({
@@ -25,7 +29,6 @@ const Login = () => {
 
     setIsLoading(false);
   };
-
   return (
     <>
       <Helmet>
@@ -39,6 +42,33 @@ const Login = () => {
           <div className="w-full bg-white rounded-lg shadow-lg dark:border md:mt-0 md: sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <img className="w-86" src={TpkLogo} alt="logo" />
+              
+              {/* Input for Username */}
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)} // Update username state
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              
+              {/* Input for Password with Eye Toggle */}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"} // Toggle between text and password
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} // Update password state
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                >
+                  {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+                </span>
+              </div>
+              
               <button
                 onClick={handleLogin}
                 disabled={isLoading}
@@ -69,3 +99,4 @@ const Login = () => {
 };
 
 export default Login;
+``
