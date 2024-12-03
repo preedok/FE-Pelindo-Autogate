@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/tpk-logo.png";
+import logo from "../../assets/bg.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Button from "@mui/material/Button";
 import { useLocation } from "react-router-dom";
 import logout from "../../assets/logout.png";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import FenceIcon from "@mui/icons-material/Fence";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const location = useLocation();

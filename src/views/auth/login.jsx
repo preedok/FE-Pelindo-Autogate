@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TpkLogo from "../../assets/tpk-logo.png";
+import TpkLogo from "../../assets/bg.png";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
