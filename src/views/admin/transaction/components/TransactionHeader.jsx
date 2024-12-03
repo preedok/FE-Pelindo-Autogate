@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -66,7 +65,7 @@ const TransactionHeader = () => {
                 <TableCell>{transaction.JUMLAH_VIN}</TableCell>
                 <TableCell>
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     size="small"
                     onClick={() => handleOpen(transaction)}

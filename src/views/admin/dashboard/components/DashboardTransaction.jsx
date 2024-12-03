@@ -86,7 +86,7 @@ const DashboardTransaction = () => {
               <TableCell>No Pol</TableCell>
               <TableCell>Nama Doc BC</TableCell>
               <TableCell>Tgl Gate In</TableCell>
-              <TableCell>Action</TableCell> {/* New column for actions */}
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
