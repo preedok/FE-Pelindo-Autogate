@@ -1,4 +1,4 @@
-// src/views/dashboard/components/DashboardTransaction.jsx
+
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -15,9 +15,9 @@ import {
   IconButton,
   TablePagination,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close"; // Import Close icon
+import CloseIcon from "@mui/icons-material/Close"; 
 import useStore from "../datas/store";
-import DashboardTransactionDetail from "./DashboardTransactionDetail"; // Import the detail component
+import DashboardTransactionDetail from "./DashboardTransactionDetail";
 
 const style = {
   position: "absolute",
@@ -44,7 +44,7 @@ const DashboardTransaction = () => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Reset to first page
+    setPage(0);
   };
 
   useEffect(() => {
