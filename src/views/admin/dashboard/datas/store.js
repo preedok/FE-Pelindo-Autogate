@@ -6,7 +6,7 @@ import {
   getLongStayCargo,
 } from "./client";
 
-const useStore = create((set) => ({
+const useDashboardStore = create((set) => ({
   dashboardTransaction: [],
   dashboardTransactionDetail: [],
   longStayCargo: [],
@@ -27,4 +27,4 @@ const useStore = create((set) => ({
   },
 }));
 
-export default useStore;
+export default useDashboardStore;

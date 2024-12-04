@@ -1,4 +1,3 @@
-// src/views/transaction/datas/store.js
 import { create } from "zustand";
 import { fetchTransactionHeader, fetchTransactionDetail } from "./client";
 
@@ -15,4 +14,4 @@ const useTransactionStore = create((set) => ({
   },
 }));
 
-export default useTransactionStore;
+export default useTransactionStore; // Default export

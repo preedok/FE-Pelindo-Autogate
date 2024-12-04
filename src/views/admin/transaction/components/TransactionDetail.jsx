@@ -1,41 +1,42 @@
-import React, {useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Box,
   IconButton,
-  TablePagination,
 } from "@mui/material";
-import useTransactionStore from "../datas/store";
 import CloseIcon from "@mui/icons-material/Close";
+import CustomTable from '../../../../components/specialized/CustomTable'; // Adjust the path as necessary
+import useTransactionStore from "../datas/store";
+
 const TransactionDetail = ({ noTiket, onClose }) => {
   const { transactionDetail, fetchDetail } = useTransactionStore();
-  const [page, setPage] = useState(0); 
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    if (noTiket) {
+      fetchDetail(noTiket);
+    }
+  }, [noTiket, fetchDetail]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); 
+    setPage(0);
   };
-  const currentRows = transactionDetail.slice(
-    page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
-  );
-  useEffect(() => {
-    if (noTiket) {
-      fetchDetail(noTiket);
-    }
-  }, [noTiket, fetchDetail]);
+
+  const columns = [
+    { id: 'NO_VIN', label: 'No VIN', minWidth: 100 },
+    { id: 'KATEGORI_CAR', label: 'Kategori Car', minWidth: 100 },
+    { id: 'MERK_CAR', label: 'Merk Car', minWidth: 100 },
+    { id: 'JENIS_CAR', label: 'Jenis Car', minWidth: 100 },
+    { id: 'NM_UNIT', label: 'Nama Unit', minWidth: 100 },
+  ];
+
   return (
     <Modal open={Boolean(noTiket)} onClose={onClose}>
       <div
@@ -61,46 +62,16 @@ const TransactionDetail = ({ noTiket, onClose }) => {
             <CloseIcon />
           </IconButton>
         </Box>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow style={{ backgroundColor: "#CAF4FF" }}>
-                <TableCell>No VIN</TableCell>
-                <TableCell>Kategori Car</TableCell>
-                <TableCell>Merk Car</TableCell>
-                <TableCell>Jenis Car</TableCell>
-                <TableCell>Nama Unit</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {currentRows.map((detail) => (
-                <TableRow key={detail.NO_VIN}>
-                  <TableCell>{detail.NO_VIN}</TableCell>
-                  <TableCell>{detail.KATEGORI_CAR}</TableCell>
-                  <TableCell>{detail.MERK_CAR}</TableCell>
-                  <TableCell>{detail.JENIS_CAR}</TableCell>
-                  <TableCell>{detail.NM_UNIT}</TableCell>
-                </TableRow>
-              ))}
-              {currentRows.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={5} style={{ textAlign: "center" }}>
-                    No Data Available
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]} 
-            component="div"
-            count={transactionDetail.length} 
-            rowsPerPage={rowsPerPage}
-            page={page} 
-            onPageChange={handleChangePage} 
-            onRowsPerPageChange={handleChangeRowsPerPage} 
-          />
-        </TableContainer>
+
+        <CustomTable
+          columns={columns}
+          loading={false} // Set loading state if needed
+          rows={transactionDetail}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </div>
     </Modal>
   );
