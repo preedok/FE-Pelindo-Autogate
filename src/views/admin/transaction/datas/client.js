@@ -1,106 +1,79 @@
-import axios from "axios";
+// src/views/transaction/datas/client.js
+const API_URL = "https://ptosc-integration-api.pelindo.co.id/AMS"; // Ganti dengan URL API yang sesuai
 
-const BASE_URL = 'https://ptosc-integration-api.pelindo.co.id/AMS';
-const USERNAME = 'autogate';
-const PASSWORD = '#m4ritime6atew4y';
-
-export const transactionClient = {
-  createBasicAuthHeader(username, password) {
-    return `Basic ${btoa(`${username}:${password}`)}`;
-  },
-  
-  getHeaderTransactions: async (params) => {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/GetAMSTransactionHeaderDT`,
+export const fetchTransactionHeader = async () => {
+  const response = await fetch(`${API_URL}/GetAMSTransactionHeaderDT`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"),
+    },
+    body: JSON.stringify({
+      branchCode: "4100",
+      terminalCode: "41001",
+      direction: "RCV",
+      length: 10,
+      start: 0,
+      draw: 1,
+      search: "",
+      order: [
         {
-          branchCode: params.branchCode,
-          terminalCode: params.terminalCode,
-          direction: params.direction || "RCV",
-          length: params.length || 10,
-          start: params.start || 0,
-          draw: params.draw || 1,
-          search: params.search || "",
-          order: params.order || [
-            {
-              column: 2,
-              dir: "DESC",
-              name: "JUMLAH_VIN"
-            }
-          ],
-          columns: params.columns || [
-            {
-              data: "TGL_GATE_IN",
-              name: "TGL_GATE_IN",
-              searchable: true,
-              orderable: true,
-              search: {
-                value: "",
-                regex: ""
-              }
-            },
-            {
-              data: "TGL_GATE_OUT",
-              name: "TGL_GATE_OUT",
-              searchable: true,
-              orderable: true,
-              search: {
-                value: "",
-                regex: ""
-              }
-            },
-            {
-              data: "JUMLAH_VIN",
-              name: "JUMLAH_VIN",
-              searchable: true,
-              orderable: true,
-              search: {
-                value: "",
-                regex: ""
-              }
-            }
-          ],
+          column: 2,
+          dir: "DESC",
+          name: "JUMLAH_VIN",
+        },
+      ],
+      columns: [
+        {
+          data: "TGL_GATE_IN",
+          name: "TGL_GATE_IN",
+          searchable: true,
+          orderable: true,
         },
         {
-          headers: {
-            Authorization: `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching transaction headers:", error);
-      throw error;
-    }
-  },
-
-  getDetailTransactions: async (params) => {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/GetAMSTransactionDetailDT`,
-        {
-          branchCode: params.branchCode,
-          terminalCode: params.terminalCode,
-          noTiket: params.noTiket,
-          length: params.length || 10,
-          start: params.start || 0,
-          draw: params.draw || 1,
-          search: params.search || "",
-          order: params.order || [],
-          columns: params.columns || [],
+          data: "TGL_GATE_OUT",
+          name: "TGL_GATE_OUT",
+          searchable: true,
+          orderable: true,
         },
         {
-          headers: {
-            Authorization: `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching transaction details:", error);
-      throw error;
-    }
-  },
+          data: "JUMLAH_VIN",
+          name: "JUMLAH_VIN",
+          searchable: true,
+          orderable: true,
+        },
+      ],
+    }),
+  });
+  return response.json();
+};
+
+export const fetchTransactionDetail = async (noTiket) => {
+  const response = await fetch(`${API_URL}/GetAMSTransactionDetailDT`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"),
+    },
+    body: JSON.stringify({
+      branchCode: "4100",
+      terminalCode: "41001",
+      noTiket: noTiket,
+      length: 10,
+      start: 0,
+      draw: 1,
+      search: "",
+      order: [
+        {
+          column: 0,
+          dir: "DESC",
+          name: "NO_VIN",
+        },
+      ],
+      columns: [
+        { data: "NO_VIN", name: "NO_VIN", searchable: true, orderable: true },
+      ],
+    }),
+  });
+  return response.json();
 };

@@ -9,7 +9,16 @@ import {
 } from "recharts";
 import { Paper } from "@mui/material";
 
-const TransactionPieChart = ({ data }) => {
+const TransactionPieChart = ({ data = [] }) => { // Default to an empty array
+  // Check if data is available
+  if (!data || data.length === 0) {
+    return (
+      <Paper style={{ padding: "16px", height: "400px" }}>
+        <p>No data available</p>
+      </Paper>
+    );
+  }
+
   // Prepare data for the pie chart
   const chartData = data.map((transaction) => ({
     name: transaction.NO_TIKET,

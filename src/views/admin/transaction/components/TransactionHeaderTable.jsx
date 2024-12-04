@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
-  Paper, 
-  TablePagination,
-  TextField,
-  Box,
-  Typography
-} from '@mui/material';
+import { Box, TextField, Button } from '@mui/material';
+import CustomTable from '../../../../components/specialized/CustomTable'; // Adjust the path as necessary
+import TransactionDetail from './TransactionDetail'; // Adjust the path as necessary
 
 const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [noTiket, setNoTiket] = useState(null); // State for the selected ticket number
 
   useEffect(() => {
     // Initial data fetch
+    setLoading(true);
     onFetchData({
       branchCode: 'YOUR_BRANCH_CODE',
       terminalCode: 'YOUR_TERMINAL_CODE',
@@ -30,7 +23,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
       search: searchTerm,
       username: 'YOUR_USERNAME',
       password: 'YOUR_PASSWORD'
-    });
+    }).finally(() => setLoading(false));
   }, [page, rowsPerPage, searchTerm, onFetchData]);
 
   const handleChangePage = (event, newPage) => {
@@ -42,11 +35,27 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
     setPage(0);
   };
 
-  const filteredData = data.filter(row => 
-    Object.values(row).some(value => 
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter(row =>
+    Object.values(row).some(value =>
+      value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  // Define columns for the CustomTable
+  const columns = [
+    { id: 'NOPOL', label: 'Vehicle Number', minWidth: 100 },
+    { id: 'NO_GATE_IN', label: 'Gate In Number', minWidth: 100 },
+    { id: 'TGL_GATE_IN', label: 'Gate In Date', minWidth: 100 },
+    { id: 'NO_GATE_OUT', label: 'Gate Out Number', minWidth: 100 },
+    { id: 'TGL_GATE_OUT', label: 'Gate Out Date', minWidth: 100 },
+    { id: 'NO_TIKET', label: 'Ticket Number', minWidth: 100 },
+    { id: 'DETAIL', label: 'Detail', minWidth: 100 }, // Add a column for the Detail button
+  ];
+
+  // Function to handle opening the detail modal
+  const handleDetailClick = (noTiket) => {
+    setNoTiket(noTiket);
+  };
 
   return (
     <Box>
@@ -54,56 +63,36 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
         <TextField
           label="Search"
           variant="outlined"
-          size="small" // Make the search field smaller
+          size="small"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ width: '200px' }} // Set a fixed width for the search field
+          sx={{ width: '200px' }}
         />
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Vehicle Number</TableCell>
-              <TableCell>Gate In Number</TableCell>
-              <TableCell>Gate In Date</TableCell>
-              <TableCell>Gate Out Number</TableCell>
-              <TableCell>Gate Out Date</TableCell>
-              <TableCell>Ticket Number</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredData
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow 
-                  key={row.NO_TIKET}
-                  hover
-                  onClick={() => onRowClick(row)}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <TableCell>{row.NOPOL}</TableCell>
-                  <TableCell>{row.NO_GATE_IN}</TableCell>
-                  <TableCell>{row.TGL_GATE_IN}</TableCell>
-                  <TableCell>{row.NO_GATE_OUT}</TableCell>
-                  <TableCell>{row.TGL_GATE_OUT}</TableCell>
-                  <TableCell>{row.NO_TIKET}</TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={filteredData.length}
-        rowsPerPage={rowsPerPage}
+      <CustomTable
+        columns={columns}
+        loading={loading}
+        rows={filteredData.map(row => ({
+          ...row,
+          DETAIL: (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleDetailClick(row.NO_TIKET)} // Pass the ticket number
+            >
+              Detail
+            </Button>
+          )
+        }))}
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPage={rowsPerPage}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
       />
+
+      {/* Render the TransactionDetail modal */}
+      <TransactionDetail noTiket={noTiket} onClose={() => setNoTiket(null)} />
     </Box>
   );
 };
