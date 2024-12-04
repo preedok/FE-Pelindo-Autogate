@@ -13,6 +13,7 @@ import {
   Modal,
   Box,
   IconButton,
+  TablePagination,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close"; // Import Close icon
 import useStore from "../datas/store";
@@ -35,6 +36,16 @@ const DashboardTransaction = () => {
   const [lanePosition, setLanePosition] = useState("");
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [page, setPage] = useState(0); // State for current page
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page
+  };
 
   useEffect(() => {
     fetchDashboardTransaction("IKTIN01");
@@ -53,7 +64,10 @@ const DashboardTransaction = () => {
     setOpenDetailModal(false);
     setSelectedTicket(null);
   };
-
+  const currentRows = dashboardTransaction.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
   return (
     <div>
       <div style={{ marginBottom: "16px" }} className="flex">
@@ -78,7 +92,7 @@ const DashboardTransaction = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow style={{backgroundColor:'#CAF4FF'}}>
+            <TableRow style={{ backgroundColor: "#CAF4FF" }}>
               <TableCell>No Tiket</TableCell>
               <TableCell>Jumlah VIN</TableCell>
               <TableCell>No UID</TableCell>
@@ -90,8 +104,8 @@ const DashboardTransaction = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dashboardTransaction && dashboardTransaction.length > 0 ? (
-              dashboardTransaction.map((transaction) => (
+            {currentRows && currentRows.length > 0 ? (
+              currentRows.map((transaction) => (
                 <TableRow key={transaction.NO_TIKET}>
                   <TableCell>{transaction.NO_TIKET}</TableCell>
                   <TableCell>{transaction.JUMLAH_VIN}</TableCell>
@@ -121,6 +135,15 @@ const DashboardTransaction = () => {
             )}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={dashboardTransaction.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       {/* Modal for Transaction Details */}

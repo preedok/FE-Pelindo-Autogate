@@ -1,4 +1,3 @@
-// src/views/dashboard/components/DashboardTransactionDetail.jsx
 import React, { useEffect } from "react";
 import {
   Table,
@@ -8,11 +7,23 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TablePagination,
 } from "@mui/material";
 import useStore from "../datas/store";
 
-const DashboardTransactionDetail = ({ noTiket,  }) => {
-  const { dashboardTransactionDetail, fetchDashboardTransactionDetail } = useStore();
+const DashboardTransactionDetail = ({ noTiket }) => {
+  const { dashboardTransactionDetail, fetchDashboardTransactionDetail } =
+    useStore();
+  const [page, setPage] = useState(0); 
+  const [rowsPerPage, setRowsPerPage] = useState(5); 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); 
+  };
 
   useEffect(() => {
     fetchDashboardTransactionDetail(noTiket);
@@ -22,7 +33,7 @@ const DashboardTransactionDetail = ({ noTiket,  }) => {
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
-          <TableRow style={{backgroundColor:'#CAF4FF'}}>
+          <TableRow style={{ backgroundColor: "#CAF4FF" }}>
             <TableCell>No VIN</TableCell>
             <TableCell>Kategori Car</TableCell>
             <TableCell>Merk Car</TableCell>
@@ -35,8 +46,8 @@ const DashboardTransactionDetail = ({ noTiket,  }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dashboardTransactionDetail && dashboardTransactionDetail.length > 0 ? (
-            dashboardTransactionDetail.map((detail) => (
+          {currentRows && currentRows.length > 0 ? (
+            currentRows.map((detail) => (
               <TableRow key={detail.NO_VIN}>
                 <TableCell>{detail.NO_VIN}</TableCell>
                 <TableCell>{detail.KATEGORI_CAR}</TableCell>
@@ -57,6 +68,15 @@ const DashboardTransactionDetail = ({ noTiket,  }) => {
             </TableRow>
           )}
         </TableBody>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]} 
+          component="div"
+          count={dashboardTransactionDetail.length}
+          rowsPerPage={rowsPerPage} 
+          page={page}
+          onPageChange={handleChangePage} 
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Table>
     </TableContainer>
   );

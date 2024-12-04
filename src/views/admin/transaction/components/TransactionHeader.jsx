@@ -11,6 +11,7 @@ import {
   Modal,
   TextField,
   Box,
+  TablePagination,
 } from "@mui/material";
 import useTransactionStore from "../datas/store";
 import TransactionDetail from "./TransactionDetail";
@@ -20,6 +21,8 @@ const TransactionHeader = () => {
   const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   useEffect(() => {
     fetchHeader();
   }, [fetchHeader]);
@@ -33,6 +36,18 @@ const TransactionHeader = () => {
   };
   const filteredTransactions = transactionHeader.filter((transaction) =>
     transaction.NO_TIKET.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); 
+  };
+  const currentRows = filteredTransactions.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
   );
   return (
     <div>
@@ -63,7 +78,7 @@ const TransactionHeader = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredTransactions.map((transaction) => (
+            {currentRows.map((transaction) => (
               <TableRow key={transaction.NO_TIKET}>
                 <TableCell>{transaction.NOPOL}</TableCell>
                 <TableCell>{transaction.NO_GATE_IN}</TableCell>
@@ -87,8 +102,24 @@ const TransactionHeader = () => {
                 </TableCell>
               </TableRow>
             ))}
+            {currentRows.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={11} style={{ textAlign: "center" }}>
+                  No Data Available
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]} 
+          component="div"
+          count={filteredTransactions.length} 
+          rowsPerPage={rowsPerPage} 
+          page={page}
+          onPageChange={handleChangePage} 
+          onRowsPerPageChange={handleChangeRowsPerPage} 
+        />
       </TableContainer>
       <Modal open={open} onClose={handleClose}>
         <div

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import {
   Modal,
@@ -12,11 +11,26 @@ import {
   Paper,
   Box,
   IconButton,
+  TablePagination,
 } from "@mui/material";
 import useTransactionStore from "../datas/store";
 import CloseIcon from "@mui/icons-material/Close";
 const TransactionDetail = ({ noTiket, onClose }) => {
   const { transactionDetail, fetchDetail } = useTransactionStore();
+  const [page, setPage] = useState(0); 
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); 
+  };
+  const currentRows = transactionDetail.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
   useEffect(() => {
     if (noTiket) {
       fetchDetail(noTiket);
@@ -50,7 +64,7 @@ const TransactionDetail = ({ noTiket, onClose }) => {
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
-              <TableRow style={{backgroundColor:'#CAF4FF'}}>
+              <TableRow style={{ backgroundColor: "#CAF4FF" }}>
                 <TableCell>No VIN</TableCell>
                 <TableCell>Kategori Car</TableCell>
                 <TableCell>Merk Car</TableCell>
@@ -59,7 +73,7 @@ const TransactionDetail = ({ noTiket, onClose }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactionDetail.map((detail) => (
+              {currentRows.map((detail) => (
                 <TableRow key={detail.NO_VIN}>
                   <TableCell>{detail.NO_VIN}</TableCell>
                   <TableCell>{detail.KATEGORI_CAR}</TableCell>
@@ -68,8 +82,24 @@ const TransactionDetail = ({ noTiket, onClose }) => {
                   <TableCell>{detail.NM_UNIT}</TableCell>
                 </TableRow>
               ))}
+              {currentRows.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={5} style={{ textAlign: "center" }}>
+                    No Data Available
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]} 
+            component="div"
+            count={transactionDetail.length} 
+            rowsPerPage={rowsPerPage}
+            page={page} 
+            onPageChange={handleChangePage} 
+            onRowsPerPageChange={handleChangeRowsPerPage} 
+          />
         </TableContainer>
       </div>
     </Modal>
