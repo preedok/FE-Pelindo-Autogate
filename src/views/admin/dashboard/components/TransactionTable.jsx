@@ -1,43 +1,48 @@
 import React from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { Paper } from "@mui/material";
 
-const TransactionTable = ({ data }) => {
+const TransactionPieChart = ({ data }) => {
+  // Prepare data for the pie chart
+  const chartData = data.map((transaction) => ({
+    name: transaction.NO_TIKET,
+    value: transaction.JUMLAH_VIN,
+  }));
+
+  // Define colors for the pie chart
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6699'];
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Ticket Number</TableCell>
-            <TableCell>Vehicle Count</TableCell>
-            <TableCell>UID Number</TableCell>
-            <TableCell>Truck Code</TableCell>
-            <TableCell>License Plate</TableCell>
-            <TableCell>Document Name</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((transaction, index) => (
-            <TableRow key={index}>
-              <TableCell>{transaction.NO_TIKET}</TableCell>
-              <TableCell>{transaction.JUMLAH_VIN}</TableCell>
-              <TableCell>{transaction.NO_UID}</TableCell>
-              <TableCell>{transaction.KD_TRUCK}</TableCell>
-              <TableCell>{transaction.NOPOL}</TableCell>
-              <TableCell>{transaction.NAMA_DOC_BC}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Paper style={{ padding: "16px", height: "400px" }}>
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie
+            data={chartData}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            fill="#8884d8"
+            label
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </Paper>
   );
 };
 
-export default TransactionTable;
+export default TransactionPieChart;

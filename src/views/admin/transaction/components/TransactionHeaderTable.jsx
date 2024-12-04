@@ -50,14 +50,16 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
 
   return (
     <Box>
-      <TextField
-        label="Search Transactions"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <Box display="flex" justifyContent="flex-end" marginBottom={2}>
+        <TextField
+          label="Search"
+          variant="outlined"
+          size="small" // Make the search field smaller
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ width: '200px' }} // Set a fixed width for the search field
+        />
+      </Box>
 
       <TableContainer component={Paper}>
         <Table>

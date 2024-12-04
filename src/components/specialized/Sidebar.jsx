@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/tpk-logo.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Button from "@mui/material/Button";
-import { useLocation } from "react-router-dom";
-import logout from "../../assets/logout.png";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import FenceIcon from "@mui/icons-material/Fence";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ReportIcon from "@mui/icons-material/Report";
+import MonitoringIcon from "@mui/icons-material/Visibility";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import logout from "../../assets/logout.png";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [activeMenu, setActiveMenu] = useState("dashboard");
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (currentPath === "/dashboard") {
       setActiveMenu("dashboard");
@@ -25,19 +27,20 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const handleMenuClick = (menu, path) => {
     setActiveMenu(menu);
     if (currentPath !== path) {
-      setActiveMenu(menu);
+      navigate(path);
     } else {
       setIsSidebarOpen(false);
     }
   };
-  const navigate = useNavigate();
+
+  const toggleDropdown = (menu) => {
+    setOpenDropdown(openDropdown === menu ? null : menu);
+  };
+
   return (
     <>
-      {/* top bar search */}
-      <nav
-        className={`fixed w-full py-5 bg-[#ffffff] shadow-md transition-all duration-500 ease-out right-0`}
-        style={{ zIndex: 99 }}
-      >
+      {/* Top Bar Search */}
+      <nav className="fixed w-full py-5 bg-white shadow-md transition-all duration-500 ease-out right-0" style={{ zIndex: 99 }}>
         <div className="px-3 py-4 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <form className="flex items-center gap-2 max-w-md ml-auto"></form>
@@ -46,67 +49,24 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       </nav>
 
       {/* Side Bar Navigation */}
-      <div
-        className={`fixed top-0 left-0 ${
-          isSidebarOpen ? "w-[245px]" : "w-[60px]"
-        } h-screen transition-transform`}
-        aria-label="Sidebar"
-        style={{ zIndex: 99 }}
-      >
-        <div className={`h-full pb-4 overflow-y-auto bg-[#0F2167] `}>
-          <div
-            style={{ zIndex: 2 }}
-            className={`flex ${
-              isSidebarOpen
-                ? "bg-[#0F2167]  flex h-[70px]"
-                : " bg-[#fffff] py-3 px-3 flex h-[70px]"
-            }`}
-          >
+      <div className={`fixed top-0 left-0 ${isSidebarOpen ? "w-[245px]" : "w-[60px]"} h-screen transition-transform`} aria-label="Sidebar" style={{ zIndex: 99 }}>
+        <div className={`h-full pb-4 overflow-y-auto bg-[#0F2167]`}>
+          <div className={`flex ${isSidebarOpen ? "bg-[#0F2167] flex h-[70px]" : "bg-white py-3 px-3 flex h-[70px]"}`}>
             {isSidebarOpen ? (
               <div style={{ backgroundColor: "white" }} className="flex">
-                <img
-                  src={logo}
-                  style={{ width: "240px", height: "50px" }}
-                  className={` px-6 mt-3 hidden lg:inline`}
-                  alt="Flowbite Logo"
-                />
-                <button
-                  style={{ marginTop: "-15px" }}
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                >
-                  <svg
-                    className={`w-8 h-8 text-[#000000]`}
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                    ></path>
+                <img src={logo} style={{ width: "240px", height: "50px" }} className={`px-6 mt-3 hidden lg:inline`} alt="Logo" />
+                <button style={{ marginTop: "-15px" }} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                  <svg className={`w-8 h-8 text-black`} aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                   </svg>
                 </button>
               </div>
             ) : (
-              <>
-                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                  <svg
-                    className={`w-8 ms-1 h-8 text-[#ffffff]`}
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                    ></path>
-                  </svg>
-                </button>
-              </>
+              <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                <svg className={`w-8 ms-1 h-8 text-white`} aria-hidden="true" fill="current Color" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                </svg>
+              </button>
             )}
           </div>
 
@@ -117,27 +77,13 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <img src={logout} alt="Logout Icon" width={70} height={70} />
                 </div>
                 <div className="flex text-center justify-center flex-col mt-2">
-                  <h5
-                    className="text-[white]"
-                    style={{ fontSize: "18px", fontWeight: "600" }}
-                  >
+                  <h5 className="text-white" style={{ fontSize: "18px", fontWeight: "600" }}>
                     {localStorage.getItem("fullname")}
                   </h5>
-                  <h6
-                    className="text-[#fa2626]"
-                    style={{ fontSize: "12px", fontWeight: "600" }}
-                  >
+                  <h6 className="text-[#fa2626]" style={{ fontSize: "12px", fontWeight: "600" }}>
                     {localStorage.getItem("role")}
                   </h6>
                 </div>
-                {/* <Button
-                  sx={{ backgroundColor: "red" }}
-                  className="gap-1"
-                  variant="contained"
-                  size="small"
-                >
-                  <ExitToAppIcon fontSize="small" /> Logout
-                </Button> */}
               </div>
             </div>
           ) : (
@@ -149,53 +95,74 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           )}
 
           <ul className="space-y-2 font-medium mt-6 mx-3 ">
-            <li
-              onClick={() => navigate("/dashboard")}
-              style={{ cursor: "pointer" }}
-            >
-              <p
-                onClick={() => handleMenuClick("dashboard")}
-                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
-                  activeMenu === "dashboard"
-                    ? "bg-[#26ACFA] dark:bg-[#26ACFA] text-white"
-                    : "hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group"
-                }`}
-              >
+            <li onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
+              <p onClick={() => handleMenuClick("dashboard", "/dashboard")} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === "dashboard" ? "bg-[#26ACFA] text-white" : "hover:bg-[#26ACFA] group transition duration-300"}`}>
                 <DashboardIcon />
                 {isSidebarOpen ? <Link to="/dashboard">Dashboard</Link> : null}
               </p>
             </li>
-            <li
-              onClick={() => navigate("/transaction")}
-              style={{ cursor: "pointer" }}
-            >
-              <p
-                onClick={() => handleMenuClick("transaction")}
-                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
-                  activeMenu === "transaction"
-                    ? "bg-[#26ACFA] dark:bg-[#26ACFA] text-white"
-                    : "hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group"
-                }`}
-              >
+            <li onClick={() => navigate("/transaction")} style={{ cursor: "pointer" }}>
+              <p onClick={() => handleMenuClick("transaction", "/transaction")} className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === "transaction" ? "bg-[#26ACFA] text-white" : "hover:bg-[#26ACFA] group transition duration-300"}`}>
                 <ReceiptIcon />
-                {isSidebarOpen ? (
-                  <Link to="/transaction">Transaction</Link>
-                ) : null}
+                {isSidebarOpen ? <Link to="/transaction">Transaction</Link> : null}
               </p>
             </li>
-            {/* <li onClick={() => navigate("/gate")} style={{ cursor: "pointer" }}>
-              <p
-                onClick={() => handleMenuClick("gate")}
-                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
-                  activeMenu === "gate"
-                    ? "bg-[#26ACFA] dark:bg-[#26ACFA] text-white"
-                    : "hover:bg-[#26ACFA] dark:hover:bg-[#26ACFA]  group"
-                }`}
-              >
-                <FenceIcon />
-                {isSidebarOpen ? <Link to="/gate">Gate</Link> : null}
+            <li onClick={() => toggleDropdown("confirmUpdate")} style={{ cursor: "pointer" }}>
+              <p className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}>
+                <ConfirmationNumberIcon />
+                <span>Confirm BC CA</span>
+                <ExpandMoreIcon />
               </p>
-            </li> */}
+              {openDropdown === "confirmUpdate" && (
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
+                  <li className="pl-5" onClick={() => { handleMenuClick("confirmUpdate", "/confirm-update-bc-ca"); }}>Confirm Update</li>
+                </ul>
+              )}
+            </li>
+            <li onClick={() => toggleDropdown("report")} style={{ cursor: "pointer" }}>
+              <p className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}>
+                <ReportIcon />
+                <span>Report</span>
+                <ExpandMoreIcon />
+              </p>
+              {openDropdown === "report" && (
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration- 300">
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("reportImport", "/report-import"); }}>Report Import</li>
+                  <li className="pl-5" onClick={() => { handleMenuClick("reportExport", "/report-export"); }}>Report Export</li>
+                </ul>
+              )}
+            </li>
+            <li onClick={() => toggleDropdown("monitoring")} style={{ cursor: "pointer" }}>
+              <p className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}>
+                <MonitoringIcon />
+                <span>Report Cartos</span>
+                <ExpandMoreIcon />
+              </p>
+              {openDropdown === "monitoring" && (
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("monitoringRFID", "/monitoring-rfid-cargo"); }}>Monitoring RFID Cargo</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("vesselExport", "/vessel-export"); }}>Vessel Export</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("vesselImport", "/vessel-import"); }}>Vessel Import</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("truckExport", "/truck-export"); }}>Truck Export</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("truckImport", "/truck-import"); }}>Truck Import</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("yarnExport", "/yarn-export"); }}>Yarn Export</li>
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("yarnImport", "/yarn-import"); }}>Yarn Import</li>
+                </ul>
+              )}
+            </li>
+            <li onClick={() => toggleDropdown("exsDKP")} style={{ cursor: "pointer" }}>
+              <p className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}>
+                <ReportIcon />
+                <span>Exs DKP</span>
+                <ExpandMoreIcon />
+              </p>
+              {openDropdown === "exsDKP" && (
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
+                  <li className="pl-5 mb-3" onClick={() => { handleMenuClick("reportExportDKP", "/report-export-dkp"); }}>Report Export DKP</li>
+                  <li className="pl-5" onClick={() => { handleMenuClick("monitoringYarnDKP", "/monitoring-yarn-dkp"); }}>Monitoring Yarn DKP</li>
+                </ul>
+              )}
+            </li>
           </ul>
         </div>
       </div>

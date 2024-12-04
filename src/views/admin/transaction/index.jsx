@@ -29,12 +29,9 @@ const TransactionPage = () => {
 
   return (
     <section className="p-6 mx-5 mt-[78px] rounded-lg w-full">
-      <Breadcrombss menu={"Transaction"} submenu={"Sub Transaction"} />
+      <Breadcrombss menu={"Transaction"} submenu={"Transaction"} />
       <ContentCard>
         <Box sx={{ my: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            Transaction Management
-          </Typography>
 
           <TransactionHeaderTable
             data={headerTransactions}
