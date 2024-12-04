@@ -164,6 +164,12 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               )}
             </li>
           </ul>
+          <div className="absolute bottom-5 left-0 right-0">
+            <button className="flex w-[200px] m-auto items-center justify-center  p-2 rounded-lg text-white bg-[#fa2626] hover:text-white transition duration-300">
+              {/* <img src={logout} alt="Logout" className="mr-2" width={20} height={20} /> */}
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </>
