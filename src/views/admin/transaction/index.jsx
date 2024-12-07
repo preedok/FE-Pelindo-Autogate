@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TransactionHeaderTable from "./components/TransactionHeaderTable";
 import TransactionDetailModal from "./components/TransactionDetail";
-import useTransactionStore from "./datas/store"; // Corrected import
+import useTransactionStore from "./datas/store";
 import Breadcrombss from "../../../components/common/Breadcrombs/Breadcrombss";
 import ContentCard from "../../../components/common/Card/CardContent";
 
@@ -10,10 +10,10 @@ const TransactionPage = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore(); // Get transactionHeader from the store
+  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore(); 
 
   useEffect(() => {
-    fetchHeader(); // Fetch transaction headers when the component mounts
+    fetchHeader(); 
   }, [fetchHeader]);
 
   const handleRowClick = async (ticket) => {
@@ -21,7 +21,7 @@ const TransactionPage = () => {
     setLoading(true);
     setError(null);
     try {
-      await fetchDetail(ticket.NO_TIKET); // Use fetchDetail directly
+      await fetchDetail(ticket.NO_TIKET);
     } catch (err) {
       setError('Failed to fetch transaction details');
     } finally {
@@ -37,13 +37,13 @@ const TransactionPage = () => {
       <ContentCard>
         <Box sx={{ my: 4 }}>
           <TransactionHeaderTable
-            data={transactionHeader} // Use the fetched transactionHeader
-            onFetchData={fetchHeader} // Use fetchHeader to fetch data
+            data={transactionHeader}
+            onFetchData={fetchHeader} 
             onRowClick={handleRowClick}
           />
           <TransactionDetailModal
             open={!!selectedTicket}
-            onClose={() => setSelectedTicket(null)} // Close modal function
+            onClose={() => setSelectedTicket(null)}
             ticketData={selectedTicket}
           />
         </Box>

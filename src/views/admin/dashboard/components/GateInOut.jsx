@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Tabs,
   Tab,
@@ -19,24 +19,17 @@ import {
   MenuItem as SelectMenuItem,
   FormControl,
   InputLabel,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Carousel from 'react-material-ui-carousel';
-import { styled } from '@mui/material/styles';
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Carousel from "react-material-ui-carousel";
+import { styled } from "@mui/material/styles";
+import CustomTable from "../../../../components/specialized/CustomTable";
 
 const carouselItems = [
-  { id: 1, image: 'https://via.placeholder.com/400x200?text=Image+1' },
-  { id: 2, image: 'https://via.placeholder.com/400x200?text=Image+2' },
-  { id: 3, image: 'https://via.placeholder.com/400x200?text=Image+3' },
+  { id: 1, image: "https://via.placeholder.com/400x200?text=Image+1" },
+  { id: 2, image: "https://via.placeholder.com/400x200?text=Image+2" },
+  { id: 3, image: "https://via.placeholder.com/400x200?text=Image+3" },
 ];
-
 const LiveStreamImages = ({ onSwitch }) => (
   <Grid container spacing={2}>
     {Array.from({ length: 4 }, (_, index) => (
@@ -54,21 +47,18 @@ const LiveStreamImages = ({ onSwitch }) => (
     ))}
   </Grid>
 );
-
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(3),
   boxShadow: theme.shadows[5],
-  borderRadius: '12px',
+  borderRadius: "12px",
   backgroundColor: theme.palette.background.paper,
 }));
-
 const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: '8px',
-  '&:hover': {
+  borderRadius: "8px",
+  "&:hover": {
     backgroundColor: theme.palette.primary.light,
   },
 }));
-
 const GateInOut = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isLiveCapture, setIsLiveCapture] = useState(true);
@@ -76,56 +66,99 @@ const GateInOut = () => {
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [openPortalModal, setOpenPortalModal] = useState(false);
   const [activeDetailTab, setActiveDetailTab] = useState(0);
-  const [reason, setReason] = useState('');
-  const [selectedReason, setSelectedReason] = useState('');
-
+  const [reason, setReason] = useState("");
+  const [selectedReason, setSelectedReason] = useState("");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const vinColumns = [
+    { id: "no", label: "No", minWidth: 50, align: "center" },
+    { id: "vin", label: "VIN", minWidth: 100 },
+    { id: "typeCargo", label: "Type Cargo", minWidth: 100 },
+    { id: "model", label: "Model", minWidth: 100 },
+    { id: "carMaker", label: "CAR MAKER", minWidth: 100 },
+    { id: "blNumber", label: "BL Number", minWidth: 100 },
+    { id: "blDate", label: "BL Date", minWidth: 100 },
+    { id: "bcNumberIn", label: "BC Number IN", minWidth: 100 },
+    { id: "bcDateIn", label: "BC Date IN", minWidth: 100 },
+    { id: "bcNumberOut", label: "BC Number OUT", minWidth: 100 },
+    { id: "bcDateOut", label: "BC Date OUT", minWidth: 100 },
+    { id: "loadPort", label: "Load Port", minWidth: 100 },
+    { id: "transitPort", label: "Transit Port", minWidth: 100 },
+    { id: "dischargePort", label: "Discharge Port", minWidth: 100 },
+    { id: "nextPort", label: "Next Port", minWidth: 100 },
+    { id: "documentDate", label: "Document Date", minWidth: 100 },
+    { id: "documentType", label: "Document Type", minWidth: 100 },
+    { id: "documentNumber", label: "Document Number", minWidth: 100 },
+    { id: "holdStatus", label: "Hold Status", minWidth: 100 },
+    { id: "autoHold", label: "Auto Hold", minWidth: 100 },
+  ];
+  const vinRows = [
+    {
+      no: 1,
+      vin: "VIN123456",
+      typeCargo: "Type A",
+      model: "Model X",
+      carMaker: "Maker Y",
+      blNumber: "BL123",
+      blDate: "2024-10-12",
+      bcNumberIn: "BC123",
+      bcDateIn: "2024-10-12",
+      bcNumberOut: "BC456",
+      bcDateOut: "2024-10-13",
+      loadPort: "Port A",
+      transitPort: "Port B",
+      dischargePort: "Port C",
+      nextPort: "Port D",
+      documentDate: "2024-10-14",
+      documentType: "Type 1",
+      documentNumber: "Doc123",
+      holdStatus: "Active",
+      autoHold: "No",
+    },
+  ];
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
-    setIsLiveCapture(true); // Reset to Live Capture when changing tabs
+    setIsLiveCapture(true);
   };
-
   const handleToggleLiveMode = () => {
     setIsLiveCapture((prev) => !prev);
   };
-
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
   const handleOpenDetailModal = () => {
     setOpenDetailModal(true);
   };
-
   const handleCloseDetailModal = () => {
     setOpenDetailModal(false);
   };
-
   const handleOpenPortalModal = () => {
     setOpenPortalModal(true);
   };
-
   const handleClosePortalModal = () => {
     setOpenPortalModal(false);
-    setReason('');
-    setSelectedReason('');
+    setReason("");
+    setSelectedReason("");
   };
-
   const handleDetailTabChange = (event, newValue) => {
     setActiveDetailTab(newValue);
   };
-
   const handleReasonChange = (event) => {
     setSelectedReason(event.target.value);
   };
-
   const handleReasonTextChange = (event) => {
     setReason(event.target.value);
   };
-
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
@@ -146,22 +179,19 @@ const GateInOut = () => {
           <MenuItem onClick={handleMenuClose}>Tool 3</MenuItem>
         </Menu>
       </div>
-
-      <div className='flex gap-2 w-full'>
+      <div className="flex gap-2 w-full">
         <StyledCard className="mt-4 w-full">
-          <div className='flex justify-between items-center mb-4'>
+          <div className="flex justify-between items-center mb-4">
             <StyledButton
               variant="contained"
-              color={isLiveCapture ? 'primary' : 'secondary'}
+              color={isLiveCapture ? "primary" : "secondary"}
               onClick={handleToggleLiveMode}
             >
-              {isLiveCapture ? 'Live Capture' : 'Live Stream'}
+              {isLiveCapture ? "Live Capture" : "Live Stream"}
             </StyledButton>
+            <Typography variant="h5">12-10-2024</Typography>
             <Typography variant="h5">
-              12-10-2024
-            </Typography>
-            <Typography variant="h5">
-              {activeTab === 0 ? 'Gate In' : 'Gate Out'}
+              {activeTab === 0 ? "Gate In" : "Gate Out"}
             </Typography>
           </div>
           {isLiveCapture ? (
@@ -171,45 +201,65 @@ const GateInOut = () => {
                   <img
                     src={item.image}
                     alt={`Carousel ${item.id}`}
-                    className="w-full h-48 object-cover rounded-lg"
+                    className="w-full h-58 object-cover rounded-lg"
                   />
                 </div>
               ))}
             </Carousel>
           ) : (
-            <LiveStreamImages onSwitch={(item) => console.log(`Switching to Image ${item}`)} />
+            <LiveStreamImages
+              onSwitch={(item) => console.log(`Switching to Image ${item}`)}
+            />
           )}
 
           <div className="mt-4">
-            <Typography variant="body1"><strong>Visit ID:</strong> TRK3988917038722376</Typography>
-            <Typography variant="body1"><strong>Nomor TID:</strong> N01623</Typography>
-            <Typography variant="body1"><strong>Jumlah VIN:</strong> 6</Typography>
-            <Typography variant="body1"><strong>Tipe Dokumen:</strong> -</Typography>
-            <Typography variant="body1"><strong>Keterangan:</strong> GIN</Typography>
-            <Typography variant="body1"><strong>No. Polisi Truk:</strong> B9003KEI</Typography>
+            <Typography variant="body1">
+              <strong>Visit ID:</strong> TRK3988917038722376
+            </Typography>
+            <Typography variant="body1">
+              <strong>Nomor TID:</strong> N01623
+            </Typography>
+            <Typography variant="body1">
+              <strong>Jumlah VIN:</strong> 6
+            </Typography>
+            <Typography variant="body1">
+              <strong>Tipe Dokumen:</strong> -
+            </Typography>
+            <Typography variant="body1">
+              <strong>Keterangan:</strong> GIN
+            </Typography>
+            <Typography variant="body1">
+              <strong>No. Polisi Truk:</strong> B9003KEI
+            </Typography>
           </div>
 
           <div className="mt-4 flex justify-between">
             <div className="flex space-x-4">
-              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>Detail</StyledButton>
-              <StyledButton variant="outlined" color="success" onClick={handleOpenPortalModal}>Open Portal</StyledButton>
+              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>
+                Detail
+              </StyledButton>
+              <StyledButton
+                variant="outlined"
+                color="success"
+                onClick={handleOpenPortalModal}
+              >
+                Open Portal
+              </StyledButton>
             </div>
           </div>
         </StyledCard>
         <StyledCard className="mt-4 w-full">
-          <div className='flex justify-between items-center mb-4'>
+          <div className="flex justify-between items-center mb-4">
             <StyledButton
               variant="contained"
-              color={isLiveCapture ? 'primary' : 'secondary'}
+              color={isLiveCapture ? "primary" : "secondary"}
               onClick={handleToggleLiveMode}
             >
-              {isLiveCapture ? 'Live Capture' : 'Live Stream'}
+              {isLiveCapture ? "Live Capture" : "Live Stream"}
             </StyledButton>
+            <Typography variant="h5">12-10-2024</Typography>
             <Typography variant="h5">
-              12-10-2024
-            </Typography>
-            <Typography variant="h5">
-              {activeTab === 0 ? 'Gate In' : 'Gate Out'}
+              {activeTab === 0 ? "Gate In" : "Gate Out"}
             </Typography>
           </div>
           {isLiveCapture ? (
@@ -219,34 +269,60 @@ const GateInOut = () => {
                   <img
                     src={item.image}
                     alt={`Carousel ${item.id}`}
-                    className="w-full h-48 object-cover rounded-lg"
+                    className="w-full h-58 object-cover rounded-lg"
                   />
                 </div>
               ))}
             </Carousel>
           ) : (
-            <LiveStreamImages onSwitch={(item) => console.log(`Switching to Image ${item}`)} />
+            <LiveStreamImages
+              onSwitch={(item) => console.log(`Switching to Image ${item}`)}
+            />
           )}
 
           <div className="mt-4">
-            <Typography variant="body1"><strong>Visit ID:</strong> TRK3988917038722376</Typography>
-            <Typography variant="body1"><strong>Nomor TID:</strong> N01623</Typography>
-            <Typography variant="body1"><strong>Jumlah VIN:</strong> 6</Typography>
-            <Typography variant="body1"><strong>Tipe Dokumen:</strong> -</Typography>
-            <Typography variant="body1"><strong>Keterangan:</strong> GIN</Typography>
-            <Typography variant="body1"><strong>No. Polisi Truk:</strong> B9003KEI</Typography>
+            <Typography variant="body1">
+              <strong>Visit ID:</strong> TRK3988917038722376
+            </Typography>
+            <Typography variant="body1">
+              <strong>Nomor TID:</strong> N01623
+            </Typography>
+            <Typography variant="body1">
+              <strong>Jumlah VIN:</strong> 6
+            </Typography>
+            <Typography variant="body1">
+              <strong>Tipe Dokumen:</strong> -
+            </Typography>
+            <Typography variant="body1">
+              <strong>Keterangan:</strong> GIN
+            </Typography>
+            <Typography variant="body1">
+              <strong>No. Polisi Truk:</strong> B9003KEI
+            </Typography>
           </div>
 
           <div className="mt-4 flex justify-between">
             <div className="flex space-x-4">
-              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>Detail</StyledButton>
-              <StyledButton variant="outlined" color="success" onClick={handleOpenPortalModal}>Open Portal</StyledButton>
+              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>
+                Detail
+              </StyledButton>
+              <StyledButton
+                variant="outlined"
+                color="success"
+                onClick={handleOpenPortalModal}
+              >
+                Open Portal
+              </StyledButton>
             </div>
           </div>
         </StyledCard>
       </div>
-      {/* Detail Modal */}
-      <Dialog open={openDetailModal} onClose={handleCloseDetailModal} maxWidth="lg" fullWidth>
+      <Dialog
+        open={openDetailModal}
+        onClose={handleCloseDetailModal}
+        maxWidth="lg"
+        fullWidth
+      >
         <DialogTitle>Detail Information</DialogTitle>
         <DialogContent>
           <Carousel>
@@ -265,80 +341,52 @@ const GateInOut = () => {
             <Tab label="Daftar VIN" />
           </Tabs>
           {activeDetailTab === 0 && (
-            <div>
-              <Typography variant="body1"><strong>Visit ID:</strong> TRK3988917038722376</Typography>
-              <Typography variant="body1"><strong>Jumlah VIN:</strong> 6</Typography>
-              <Typography variant="body1"><strong>Keterangan:</strong> GIN</Typography>
-              <Typography variant="body1"><strong>Tipe Dokumen:</strong> -</Typography>
-              <Typography variant="body1"><strong>No. Polisi Truk:</strong> B9003KEI</Typography>
+            <div className="mt-5">
+              <Typography variant="body1">
+                <strong>Visit ID:</strong> TRK3988917038722376
+              </Typography>
+              <Typography variant="body1">
+                <strong>Jumlah VIN:</strong> 6
+              </Typography>
+              <Typography variant="body1">
+                <strong>Keterangan:</strong> GIN
+              </Typography>
+              <Typography variant="body1">
+                <strong>Tipe Dokumen:</strong> -
+              </Typography>
+              <Typography variant="body1">
+                <strong>No. Polisi Truk:</strong> B9003KEI
+              </Typography>
             </div>
           )}
           {activeDetailTab === 1 && (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>No</TableCell>
-                    <TableCell>VIN</TableCell>
-                    <TableCell>Type Cargo</TableCell>
-                    <TableCell>Model</TableCell>
-                    <TableCell>CAR MAKER</TableCell>
-                    <TableCell>BL Number</TableCell>
-                    <TableCell>BL Date</TableCell>
-                    <TableCell>BC Number IN</TableCell>
-                    <TableCell>BC Date IN</TableCell>
-                    <TableCell>BC Number OUT</TableCell>
-                    <TableCell>BC Date OUT</TableCell>
-                    <TableCell>Load Port</TableCell>
-                    <TableCell>Transit Port</TableCell>
-                    <TableCell>Discharge Port</TableCell>
-                    <TableCell>Next Port</TableCell>
-                    <TableCell>Document Date</TableCell>
-                    <TableCell>Document Type</TableCell>
-                    <TableCell>Document Number</TableCell>
-                    <TableCell>Hold Status</TableCell>
-                    <TableCell>Auto Hold</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>1</TableCell>
-                    <TableCell>VIN123456</TableCell>
-                    <TableCell>Type A</TableCell>
-                    <TableCell>Model X</TableCell>
-                    <TableCell>Maker Y</TableCell>
-                    <TableCell>BL123</TableCell>
-                    <TableCell>2024-10-12</TableCell>
-                    <TableCell>BC123</TableCell>
-                    <TableCell>2024-10-12</TableCell>
-                    <TableCell>BC456</TableCell>
-                    <TableCell>2024-10-13</TableCell>
-                    <TableCell>Port A</TableCell>
-                    <TableCell>Port B</TableCell>
-                    <TableCell>Port C</TableCell>
-                    <TableCell>Port D</TableCell>
-                    <TableCell>2024-10-14</TableCell>
-                    <TableCell>Type 1</TableCell>
-                    <TableCell>Doc123</TableCell>
-                    <TableCell>Active</TableCell>
-                    <TableCell>No</TableCell>
-                  </TableRow>
-                  {/* Add more rows as needed */}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <CustomTable
+              columns={vinColumns}
+              rows={vinRows}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              loading={false}
+            />
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDetailModal}>Close</Button>
         </DialogActions>
       </Dialog>
-
-      {/* Open Portal Modal */}
-      <Dialog open={openPortalModal} onClose={handleClosePortalModal} maxWidth="sm" fullWidth>
+      <Dialog
+        open={openPortalModal}
+        onClose={handleClosePortalModal}
+        maxWidth="sm"
+        fullWidth
+      >
         <DialogTitle>Open Portal Confirmation</DialogTitle>
         <DialogContent>
-          <Typography>Are you sure to open manual portal for Truck with Plate (B9003KEI) and VisitID (TRK3988917038722376)?</Typography>
+          <Typography>
+            Are you sure to open manual portal for Truck with Plate (B9003KEI)
+            and VisitID (TRK3988917038722376)?
+          </Typography>
           <FormControl fullWidth margin="normal">
             <InputLabel>Reason Open Portal</InputLabel>
             <Select value={selectedReason} onChange={handleReasonChange}>
@@ -359,7 +407,13 @@ const GateInOut = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePortalModal}>Cancel</Button>
-          <Button onClick={() => { /* Handle open portal logic */ handleClosePortalModal(); }}>Confirm</Button>
+          <Button
+            onClick={() => {
+              /* Handle open portal logic */ handleClosePortalModal();
+            }}
+          >
+            Confirm
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

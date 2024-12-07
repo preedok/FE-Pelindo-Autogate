@@ -6,7 +6,8 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import CustomTable from '../../../../components/specialized/CustomTable'; // Adjust the path as necessary
+import CustomTable from '../../../../components/specialized/CustomTable'; 
+
 import useTransactionStore from "../datas/store";
 
 const TransactionDetail = ({ noTiket, onClose }) => {
@@ -65,7 +66,7 @@ const TransactionDetail = ({ noTiket, onClose }) => {
 
         <CustomTable
           columns={columns}
-          loading={false} // Set loading state if needed
+          loading={false}
           rows={transactionDetail}
           page={page}
           rowsPerPage={rowsPerPage}

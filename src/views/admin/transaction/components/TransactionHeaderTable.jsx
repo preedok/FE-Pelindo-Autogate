@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Box, TextField, Button } from '@mui/material';
-import CustomTable from '../../../../components/specialized/CustomTable'; // Adjust the path as necessary
-import TransactionDetail from './TransactionDetail'; // Adjust the path as necessary
+import CustomTable from '../../../../components/specialized/CustomTable'; 
+import TransactionDetail from './TransactionDetail';
 
 const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
-  const [noTiket, setNoTiket] = useState(null); // State for the selected ticket number
+  const [noTiket, setNoTiket] = useState(null);
 
   useEffect(() => {
-    // Initial data fetch
     setLoading(true);
     onFetchData({
       branchCode: 'YOUR_BRANCH_CODE',
       terminalCode: 'YOUR_TERMINAL_CODE',
-      direction: 'IMPORT', // or 'EXPORT'
+      direction: 'IMPORT', 
       length: rowsPerPage,
       start: page * rowsPerPage,
       draw: 1,
@@ -40,8 +39,6 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
       value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
-  // Define columns for the CustomTable
   const columns = [
     { id: 'NOPOL', label: 'Vehicle Number', minWidth: 100 },
     { id: 'NO_GATE_IN', label: 'Gate In Number', minWidth: 100 },
@@ -49,10 +46,8 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
     { id: 'NO_GATE_OUT', label: 'Gate Out Number', minWidth: 100 },
     { id: 'TGL_GATE_OUT', label: 'Gate Out Date', minWidth: 100 },
     { id: 'NO_TIKET', label: 'Ticket Number', minWidth: 100 },
-    { id: 'DETAIL', label: 'Detail', minWidth: 100 }, // Add a column for the Detail button
+    { id: 'DETAIL', label: 'Detail', minWidth: 100 },
   ];
-
-  // Function to handle opening the detail modal
   const handleDetailClick = (noTiket) => {
     setNoTiket(noTiket);
   };
@@ -77,9 +72,10 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
           ...row,
           DETAIL: (
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
-              onClick={() => handleDetailClick(row.NO_TIKET)} // Pass the ticket number
+              size='small'
+              onClick={() => handleDetailClick(row.NO_TIKET)} 
             >
               Detail
             </Button>

@@ -6,7 +6,7 @@ export const getDashboardTransaction = async (lanePosition) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"), // Gantilah dengan username dan password yang valid
+      Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"), 
     },
     body: JSON.stringify({ lanePosition }),
   });

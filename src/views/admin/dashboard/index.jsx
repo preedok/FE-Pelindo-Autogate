@@ -4,7 +4,7 @@ import { Typography, Paper, Box } from "@mui/material";
 import LongStayCargo from "./components/LongStayCargo";
 import Breadcrombss from "../../../components/common/Breadcrombs/Breadcrombss";
 import ContentCard from "../../../components/common/Card/CardContent";
-import GateInOut from "./components/GateInOut"; // Import the new component
+import GateInOut from "./components/GateInOut"; 
 import useDashboardStore from "./datas/store";
 import TransactionTable from './components/TransactionTable'
 const Dashboard = () => {

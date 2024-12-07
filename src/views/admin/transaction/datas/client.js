@@ -1,5 +1,4 @@
-// src/views/transaction/datas/client.js
-const API_URL = "https://ptosc-integration-api.pelindo.co.id/AMS"; // Ganti dengan URL API yang sesuai
+const API_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
 
 export const fetchTransactionHeader = async () => {
   const response = await fetch(`${API_URL}/GetAMSTransactionHeaderDT`, {

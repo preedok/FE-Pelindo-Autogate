@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Paper, TableContainer, TablePagination } from "@mui/material";
-import CustomTable from '../../../../components/specialized/CustomTable'; // Adjust the path as necessary
+import CustomTable from '../../../../components/specialized/CustomTable';
 import useDashboardStore from "../datas/store";
 
 const LongStayCargo = () => {
@@ -22,8 +22,6 @@ const LongStayCargo = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  // Define columns for the CustomTable
   const columns = [
     { id: 'NO_VIN', label: 'No VIN', minWidth: 100 },
     { id: 'KD_OWNER', label: 'KD Owner', minWidth: 100 },
