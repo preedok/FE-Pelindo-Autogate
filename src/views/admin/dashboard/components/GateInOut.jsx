@@ -19,12 +19,13 @@ import {
   MenuItem as SelectMenuItem,
   FormControl,
   InputLabel,
+  Box
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Carousel from "react-material-ui-carousel";
 import { styled } from "@mui/material/styles";
 import CustomTable from "../../../../components/specialized/CustomTable";
-
+import CloseIcon from "@mui/icons-material/Close";
 const carouselItems = [
   { id: 1, image: "https://via.placeholder.com/400x200?text=Image+1" },
   { id: 2, image: "https://via.placeholder.com/400x200?text=Image+2" },
@@ -323,7 +324,14 @@ const GateInOut = () => {
         maxWidth="lg"
         fullWidth
       >
-        <DialogTitle>Detail Information</DialogTitle>
+        <DialogTitle>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <span>Detail Information</span>
+            <IconButton onClick={handleCloseDetailModal} size="small">
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
         <DialogContent>
           <Carousel>
             {carouselItems.map((item) => (
@@ -371,9 +379,6 @@ const GateInOut = () => {
             />
           )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDetailModal}>Close</Button>
-        </DialogActions>
       </Dialog>
       <Dialog
         open={openPortalModal}
@@ -381,7 +386,14 @@ const GateInOut = () => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Open Portal Confirmation</DialogTitle>
+        <DialogTitle>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <span>Open Portal Confirmation</span>
+            <IconButton onClick={handleClosePortalModal} size="small">
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
         <DialogContent>
           <Typography>
             Are you sure to open manual portal for Truck with Plate (B9003KEI)
@@ -406,7 +418,6 @@ const GateInOut = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClosePortalModal}>Cancel</Button>
           <Button
             onClick={() => {
               /* Handle open portal logic */ handleClosePortalModal();
