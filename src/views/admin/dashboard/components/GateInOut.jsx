@@ -55,7 +55,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: "8px",
+  borderRadius: "5px",
   "&:hover": {
     backgroundColor: theme.palette.primary.light,
   },
@@ -213,34 +213,78 @@ const GateInOut = () => {
             />
           )}
 
-          <div className="mt-4">
-            <Typography variant="body1">
-              <strong>Visit ID:</strong> TRK3988917038722376
-            </Typography>
-            <Typography variant="body1">
-              <strong>Nomor TID:</strong> N01623
-            </Typography>
-            <Typography variant="body1">
-              <strong>Jumlah VIN:</strong> 6
-            </Typography>
-            <Typography variant="body1">
-              <strong>Tipe Dokumen:</strong> -
-            </Typography>
-            <Typography variant="body1">
-              <strong>Keterangan:</strong> GIN
-            </Typography>
-            <Typography variant="body1">
-              <strong>No. Polisi Truk:</strong> B9003KEI
-            </Typography>
+          <div className="mt-4 flex gap-2">
+            <div>
+              <Typography variant="body1">
+                <strong>Visit ID</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Nomor TID</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Jumlah VIN</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Tipe Dokumen</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Keterangan</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>No. Polisi Truk</strong>
+              </Typography>
+
+            </div>
+            <div>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+
+            </div>
+            <div>
+              <Typography variant="body1">
+                <strong>TRK3988917038722376</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>N01623</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>6</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>-</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>GIN</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>B9003KEI</strong>
+              </Typography>
+            </div>
           </div>
 
           <div className="mt-4 flex justify-between">
             <div className="flex space-x-4">
-              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>
+              <StyledButton variant="contained" onClick={handleOpenDetailModal}>
                 Detail
               </StyledButton>
               <StyledButton
-                variant="outlined"
+                variant="contained"
                 color="success"
                 onClick={handleOpenPortalModal}
               >
@@ -281,34 +325,78 @@ const GateInOut = () => {
             />
           )}
 
-          <div className="mt-4">
-            <Typography variant="body1">
-              <strong>Visit ID:</strong> TRK3988917038722376
-            </Typography>
-            <Typography variant="body1">
-              <strong>Nomor TID:</strong> N01623
-            </Typography>
-            <Typography variant="body1">
-              <strong>Jumlah VIN:</strong> 6
-            </Typography>
-            <Typography variant="body1">
-              <strong>Tipe Dokumen:</strong> -
-            </Typography>
-            <Typography variant="body1">
-              <strong>Keterangan:</strong> GIN
-            </Typography>
-            <Typography variant="body1">
-              <strong>No. Polisi Truk:</strong> B9003KEI
-            </Typography>
+          <div className="mt-4 flex gap-2">
+            <div>
+              <Typography variant="body1">
+                <strong>Visit ID</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Nomor TID</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Jumlah VIN</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Tipe Dokumen</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>Keterangan</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>No. Polisi Truk</strong>
+              </Typography>
+
+          </div>
+            <div>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>:</strong>
+              </Typography>
+
+            </div>
+            <div>
+              <Typography variant="body1">
+                <strong>TRK3988917038722376</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>N01623</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>6</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>-</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>GIN</strong>
+              </Typography>
+              <Typography variant="body1">
+                <strong>B9003KEI</strong>
+              </Typography>
+           </div>
           </div>
 
           <div className="mt-4 flex justify-between">
             <div className="flex space-x-4">
-              <StyledButton variant="outlined" onClick={handleOpenDetailModal}>
+              <StyledButton variant="contained" onClick={handleOpenDetailModal}>
                 Detail
               </StyledButton>
               <StyledButton
-                variant="outlined"
+                variant="contained"
                 color="success"
                 onClick={handleOpenPortalModal}
               >
@@ -419,8 +507,10 @@ const GateInOut = () => {
         </DialogContent>
         <DialogActions>
           <Button
+            variant="contained"
+            size="medium"
             onClick={() => {
-              /* Handle open portal logic */ handleClosePortalModal();
+              handleClosePortalModal();
             }}
           >
             Confirm

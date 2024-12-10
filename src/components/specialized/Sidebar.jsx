@@ -269,7 +269,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("vesselExport", "/vessel-export");
                     }}
                   >
-                    Vessel Export
+                    Monitoring Vessel Export
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -277,7 +277,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("vesselImport", "/vessel-import");
                     }}
                   >
-                    Vessel Import
+                    Monitoring Vessel Import
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -285,7 +285,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("truckExport", "/truck-export");
                     }}
                   >
-                    Truck Export
+                    Monitoring Truck Export
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -293,7 +293,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("truckImport", "/truck-import");
                     }}
                   >
-                    Truck Import
+                    Monitoring Truck Import
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -301,7 +301,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("yarnExport", "/yarn-export");
                     }}
                   >
-                    Yarn Export
+                    Monitoring Yarn Export
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -309,7 +309,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("yarnImport", "/yarn-import");
                     }}
                   >
-                    Yarn Import
+                    Monitoring Yarn Import
                   </li>
                 </ul>
               )}

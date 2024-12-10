@@ -8,16 +8,13 @@ const LongStayCargo = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     setLoading(true);
     fetchLongStayCargo().finally(() => setLoading(false));
   }, [fetchLongStayCargo]);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -35,7 +32,6 @@ const LongStayCargo = () => {
     { id: 'LAMA_TIMBUN', label: 'Lama Timbun', minWidth: 100 },
     { id: 'TGL_ON_STORAGE', label: 'Tgl On Storage', minWidth: 100 },
   ];
-
   return (
     <TableContainer component={Paper}>
       <CustomTable

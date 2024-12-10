@@ -12,7 +12,6 @@ export const getDashboardTransaction = async (lanePosition) => {
   });
   return response.json();
 };
-
 export const getDashboardTransactionDetail = async (noTiket) => {
   const response = await fetch(`${API_BASE_URL}/GetAMSDashboardDetailDT`, {
     method: "POST",
@@ -40,7 +39,6 @@ export const getDashboardTransactionDetail = async (noTiket) => {
   });
   return response.json();
 };
-
 export const getLongStayCargo = async () => {
   const response = await fetch(`${API_BASE_URL}/GetAMSLongStayCargoDT`, {
     method: "POST",

@@ -72,7 +72,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
           ...row,
           DETAIL: (
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               size='small'
               onClick={() => handleDetailClick(row.NO_TIKET)} 
