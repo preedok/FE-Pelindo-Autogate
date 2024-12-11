@@ -13,4 +13,3 @@ const ConfirmBcCa = () => {
 }
 
 export default ConfirmBcCa
-confirm
