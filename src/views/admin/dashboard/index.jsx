@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   return (
     <section className="p-6 mx-5 mt-[78px] rounded-lg w-full">
-      <Breadcrombss menu={"Dashboard"} submenu={"Sub Dashboard"} />
+      <Breadcrombss menu={"Dashboard"} submenu={"Dashboard"} />
       <ContentCard>
         <GateInOut />
         <Paper sx={{ p: 2 }}>
