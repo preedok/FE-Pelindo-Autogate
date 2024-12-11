@@ -312,7 +312,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ReportIcon />
-                <span>Exs DKP</span>
+                <span>Eks DKP</span>
                 <ExpandMoreIcon />
               </p>
               {openDropdown === "exsDKP" && (
