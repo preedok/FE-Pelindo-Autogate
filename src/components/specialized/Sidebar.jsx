@@ -53,19 +53,17 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Side Bar Navigation */}
       <div
-        className={`fixed top-0 left-0 ${
-          isSidebarOpen ? "w-[245px]" : "w-[60px]"
-        } h-screen transition-transform`}
+        className={`fixed top-0 left-0 ${isSidebarOpen ? "w-[245px]" : "w-[60px]"
+          } h-screen transition-transform`}
         aria-label="Sidebar"
         style={{ zIndex: 99 }}
       >
         <div className={`h-full pb-4 overflow-y-auto bg-[#0F2167]`}>
           <div
-            className={`flex ${
-              isSidebarOpen
-                ? "bg-[#0F2167] flex h-[70px]"
-                : "bg-white py-3 px-3 flex h-[70px]"
-            }`}
+            className={`flex ${isSidebarOpen
+              ? "bg-[#0F2167] flex h-[70px]"
+              : "bg-white py-3 px-3 flex h-[70px]"
+              }`}
           >
             {isSidebarOpen ? (
               <div style={{ backgroundColor: "white" }} className="flex">
@@ -89,7 +87,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     <path
                       clipRule="evenodd"
                       fillRule="evenodd"
-                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75  0 012 10z"
                     ></path>
                   </svg>
                 </button>
@@ -150,11 +148,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             >
               <p
                 onClick={() => handleMenuClick("dashboard", "/dashboard")}
-                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
-                  activeMenu === "dashboard"
-                    ? "bg-[#26ACFA] text-white"
-                    : "hover:bg-[#26ACFA] group transition duration-300"
-                }`}
+                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === "dashboard"
+                  ? "bg-[#26ACFA] text-white"
+                  : "hover:bg-[#26ACFA] group transition duration-300"
+                  }`}
                 style={{ fontWeight: "600" }}
               >
                 <DashboardIcon />
@@ -167,11 +164,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             >
               <p
                 onClick={() => handleMenuClick("transaction", "/transaction")}
-                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${
-                  activeMenu === "transaction"
-                    ? "bg-[#26ACFA] text-white"
-                    : "hover:bg-[#26ACFA] group transition duration-300"
-                }`}
+                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 ${activeMenu === "transaction"
+                  ? "bg-[#26ACFA] text-white"
+                  : "hover:bg-[#26ACFA] group transition duration-300"
+                  }`}
                 style={{ fontWeight: "600" }}
               >
                 <ReceiptIcon />
@@ -191,7 +187,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ConfirmationNumberIcon />
-                <span>Confirm BC Data</span>
+                {isSidebarOpen ? <span>Confirm BC Data</ span> : null}
               </p>
             </li>
             <li
@@ -199,22 +195,22 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               style={{ cursor: "pointer" }}
             >
               <p
-               style={{fontWeight:'600'}}
+                style={{ fontWeight: '600' }}
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ReportIcon />
-                <span>Report</span>
-                <ExpandMoreIcon />
+                {isSidebarOpen ? <span>Report</span> : null}
+                {isSidebarOpen ? <ExpandMoreIcon /> : null}
               </p>
               {openDropdown === "report" && (
-                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration- 300">
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
                   <li
                     className="pl-5 mb-3"
                     onClick={() => {
                       handleMenuClick("reportImport", "/report-import");
                     }}
                   >
-                    Report Import
+                    {isSidebarOpen ? <span>Report Import</span> : null}
                   </li>
                   <li
                     className="pl-5"
@@ -222,7 +218,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("reportExport", "/report-export");
                     }}
                   >
-                    Report Export
+                    {isSidebarOpen ? <span>Report Export</span> : null}
                   </li>
                 </ul>
               )}
@@ -232,25 +228,22 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               style={{ cursor: "pointer" }}
             >
               <p
-               style={{fontWeight:'600'}}
+                style={{ fontWeight: '600' }}
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <MonitoringIcon />
-                <span>Report Cartos</span>
-                <ExpandMoreIcon />
+                {isSidebarOpen ? <span>Report Cartos</span> : null}
+                {isSidebarOpen ? <ExpandMoreIcon /> : null}
               </p>
               {openDropdown === "monitoring" && (
                 <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
                   <li
                     className="pl-5 mb-3"
                     onClick={() => {
-                      handleMenuClick(
-                        "monitoringRFID",
-                        "/monitoring-rfid-cargo"
-                      );
+                      handleMenuClick("monitoringRFID", "/monitoring-rfid-cargo");
                     }}
                   >
-                    Monitoring RFID Cargo
+                    {isSidebarOpen ? <span>Monitoring RFID Cargo</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -258,7 +251,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("vesselExport", "/vessel-export");
                     }}
                   >
-                    Monitoring Vessel Export
+                    {isSidebarOpen ? <span>Monitoring Vessel Export</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -266,7 +259,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("vesselImport", "/vessel-import");
                     }}
                   >
-                    Monitoring Vessel Import
+                    {isSidebarOpen ? <span>Monitoring Vessel Import</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -274,7 +267,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("truckExport", "/truck-export");
                     }}
                   >
-                    Monitoring Truck Export
+                    {isSidebarOpen ? <span>Monitoring Truck Export</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -282,7 +275,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("truckImport", "/truck-import");
                     }}
                   >
-                    Monitoring Truck Import
+                    {isSidebarOpen ? <span>Monitoring Truck Import</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -290,7 +283,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("yarnExport", "/yarn-export");
                     }}
                   >
-                    Monitoring Yarn Export
+                    {isSidebarOpen ? <span>Monitoring Yarn Export</span> : null}
                   </li>
                   <li
                     className="pl-5 mb-3"
@@ -298,7 +291,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("yarnImport", "/yarn-import");
                     }}
                   >
-                    Monitoring Yarn Import
+                    {isSidebarOpen ? <span>Monitoring Yarn Import</span> : null}
                   </li>
                 </ul>
               )}
@@ -308,12 +301,12 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               style={{ cursor: "pointer" }}
             >
               <p
-               style={{fontWeight:'600'}}
+                style={{ fontWeight: '600' }}
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ReportIcon />
-                <span>Eks DKP</span>
-                <ExpandMoreIcon />
+                {isSidebarOpen ? <span>Eks DKP</span> : null}
+                {isSidebarOpen ? <ExpandMoreIcon /> : null}
               </p>
               {openDropdown === "exsDKP" && (
                 <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
@@ -323,7 +316,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("reportExportDKP", "/report-export-dkp");
                     }}
                   >
-                    Report Export DKP
+                    {isSidebarOpen ? <span>Report Export DKP</span> : null}
                   </li>
                   <li
                     className="pl-5"
@@ -334,7 +327,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       );
                     }}
                   >
-                    Monitoring Yarn DKP
+                    {isSidebarOpen ? <span>Monitoring Yarn DKP</span> : null}
                   </li>
                 </ul>
               )}
@@ -348,8 +341,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ReportIcon />
-                <span>Report AMS</span>
-                <ExpandMoreIcon />
+                {isSidebarOpen ? <span>Report AMS</span> : null}
+                {isSidebarOpen ? <ExpandMoreIcon /> : null}
               </p>
               {openDropdown === "reportAms" && (
                 <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
@@ -359,7 +352,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       handleMenuClick("monthlyReport", "/monthly-report");
                     }}
                   >
-                    Monthly Report
+                    {isSidebarOpen ? <span>Monthly Report</span> : null}
                   </li>
                   <li
                     className="pl-5"
@@ -370,16 +363,22 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       );
                     }}
                   >
-                    Daily Report
+                    {isSidebarOpen ? <span>Daily Report</span> : null}
                   </li>
                 </ul>
               )}
             </li>
           </ul>
           <div className="absolute bottom-5 left-0 right-0">
-            <button className="flex w-[200px] m-auto items-center justify-center  p-2 rounded-lg text-white bg-[#fa2626] hover:text-white transition duration-300">
-              Logout
-            </button>
+            {setIsSidebarOpen ? (
+              <button className={`flex  m-auto items-center justify-center p-2 rounded-lg text-white bg-[#fa2626] hover:text-white transition duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[60px]'}`}>
+                {isSidebarOpen ? <span>Logout</span> : <span>Out</span>}
+              </button>
+            ) : (
+              <button className={`flex mx-4 m-auto items-center justify-center p-2 rounded-lg text-white bg-[#fa2626] hover:text-white transition duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[60px]'}`}>
+                {isSidebarOpen ? <span>Logout</span> : <span>Out</span>}
+              </button>
+            )}
           </div>
         </div>
       </div>
