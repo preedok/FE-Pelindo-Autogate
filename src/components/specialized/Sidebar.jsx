@@ -181,7 +181,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </p>
             </li>
             <li
-              onClick={() => toggleDropdown("confirmUpdate")}
+              onClick={() => {
+                handleMenuClick("confirmUpdate", "/confirm-update-bc-ca");
+              }}
               style={{ cursor: "pointer" }}
             >
               <p
@@ -189,21 +191,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
               >
                 <ConfirmationNumberIcon />
-                <span>Confirm BC CA</span>
-                <ExpandMoreIcon />
+                <span>Confirm BC Data</span>
               </p>
-              {openDropdown === "confirmUpdate" && (
-                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
-                  <li
-                    className="pl-5"
-                    onClick={() => {
-                      handleMenuClick("confirmUpdate", "/confirm-update-bc-ca");
-                    }}
-                  >
-                    Confirm Update
-                  </li>
-                </ul>
-              )}
             </li>
             <li
               onClick={() => toggleDropdown("report")}
@@ -350,10 +339,45 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 </ul>
               )}
             </li>
+            <li
+              onClick={() => toggleDropdown("reportAms")}
+              style={{ cursor: "pointer" }}
+            >
+              <p
+                style={{ fontWeight: '600' }}
+                className={`flex gap-3 items-center p-2 rounded-lg text-gray-500 hover:bg-[#26ACFA] transition duration-300`}
+              >
+                <ReportIcon />
+                <span>Report AMS</span>
+                <ExpandMoreIcon />
+              </p>
+              {openDropdown === "reportAms" && (
+                <ul className="p-5 rounded-md bg-[#003161] text-gray-500 transition-all duration-300">
+                  <li
+                    className="pl-5 mb-3"
+                    onClick={() => {
+                      handleMenuClick("monthlyReport", "/monthly-report");
+                    }}
+                  >
+                    Monthly Report
+                  </li>
+                  <li
+                    className="pl-5"
+                    onClick={() => {
+                      handleMenuClick(
+                        "dailyReport",
+                        "/daily-report"
+                      );
+                    }}
+                  >
+                    Daily Report
+                  </li>
+                </ul>
+              )}
+            </li>
           </ul>
           <div className="absolute bottom-5 left-0 right-0">
             <button className="flex w-[200px] m-auto items-center justify-center  p-2 rounded-lg text-white bg-[#fa2626] hover:text-white transition duration-300">
-              {/* <img src={logout} alt="Logout" className="mr-2" width={20} height={20} /> */}
               Logout
             </button>
           </div>

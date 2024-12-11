@@ -16,6 +16,8 @@ import YarnExport from "../views/admin/report-cartos/yarn-export";
 import YarnImport from "../views/admin/report-cartos/yarn-import";
 import ReportExportDKP from "../views/admin/exs-dkp/report-export-dkp";
 import MonitoringYarnDKP from "../views/admin/exs-dkp/monitoring-yarn-dkp";
+import MonthlyReport from "../views/admin/report-ams/monthly-report";
+import DailyReport from "../views/admin/report-ams/daily-report";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -63,6 +65,12 @@ const Router = () => {
         </Route>
         <Route path="/monitoring-yarn-dkp" element={<Layout />}>
           <Route index element={<MonitoringYarnDKP />} />
+        </Route>
+        <Route path="/monthly-report" element={<Layout />}>
+          <Route index element={<MonthlyReport />} />
+        </Route>
+        <Route path="/daily-report" element={<Layout />}>
+          <Route index element={<DailyReport />} />
         </Route>
       </Routes>
     </BrowserRouter>

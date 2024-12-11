@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Button } from '@mui/material';
-import CustomTable from '../../../../components/specialized/CustomTable'; 
+import { Box, TextField, Button, Tabs, Tab } from '@mui/material';
+import CustomTable from '../../../../components/specialized/CustomTable';
 import TransactionDetail from './TransactionDetail';
 
 const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
@@ -9,13 +9,14 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [noTiket, setNoTiket] = useState(null);
+  const [tabValue, setTabValue] = useState(0); // State for managing the selected tab
 
   useEffect(() => {
     setLoading(true);
     onFetchData({
       branchCode: 'YOUR_BRANCH_CODE',
       terminalCode: 'YOUR_TERMINAL_CODE',
-      direction: 'IMPORT', 
+      direction: tabValue === 0 ? 'IMPORT' : 'EXPORT', // Change direction based on selected tab
       length: rowsPerPage,
       start: page * rowsPerPage,
       draw: 1,
@@ -23,7 +24,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
       username: 'YOUR_USERNAME',
       password: 'YOUR_PASSWORD'
     }).finally(() => setLoading(false));
-  }, [page, rowsPerPage, searchTerm, onFetchData]);
+  }, [page, rowsPerPage, searchTerm, tabValue, onFetchData]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -39,6 +40,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
       value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
   const columns = [
     { id: 'NOPOL', label: 'Vehicle Number', minWidth: 100 },
     { id: 'NO_GATE_IN', label: 'Gate In Number', minWidth: 100 },
@@ -48,12 +50,23 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
     { id: 'NO_TIKET', label: 'Ticket Number', minWidth: 100 },
     { id: 'DETAIL', label: 'Detail', minWidth: 100 },
   ];
+
   const handleDetailClick = (noTiket) => {
     setNoTiket(noTiket);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+    setPage(0); // Reset page when switching tabs
+  };
+
   return (
     <Box>
+      <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary">
+        <Tab label="Import" />
+        <Tab label="Export" />
+      </Tabs>
+
       <Box display="flex" justifyContent="flex-end" marginBottom={2}>
         <TextField
           label="Search"
@@ -75,7 +88,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
               variant="contained"
               color="primary"
               size='small'
-              onClick={() => handleDetailClick(row.NO_TIKET)} 
+              onClick={() => handleDetailClick(row.NO_TIKET)}
             >
               Detail
             </Button>
