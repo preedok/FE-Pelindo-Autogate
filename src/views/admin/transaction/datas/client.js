@@ -1,6 +1,6 @@
 const API_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
 
-export const fetchTransactionHeader = async () => {
+export const fetchTransactionHeader = async (branchCode, terminalCode, direction) => {
   const response = await fetch(`${API_URL}/GetAMSTransactionHeaderDT`, {
     method: "POST",
     headers: {
@@ -8,9 +8,9 @@ export const fetchTransactionHeader = async () => {
       Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"),
     },
     body: JSON.stringify({
-      branchCode: "4100",
-      terminalCode: "41001",
-      direction: "IMPORT",
+      branchCode,
+      terminalCode,
+      direction,
       length: 10,
       start: 0,
       draw: 1,

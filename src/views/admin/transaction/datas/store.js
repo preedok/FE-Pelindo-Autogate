@@ -4,8 +4,8 @@ import { fetchTransactionHeader, fetchTransactionDetail } from "./client";
 const useTransactionStore = create((set) => ({
   transactionHeader: [],
   transactionDetail: [],
-  fetchHeader: async () => {
-    const data = await fetchTransactionHeader();
+  fetchHeader: async (branchCode, terminalCode, direction) => {
+    const data = await fetchTransactionHeader(branchCode, terminalCode, direction);
     set({ transactionHeader: data.ResponseData });
   },
   fetchDetail: async (noTiket) => {
@@ -14,4 +14,4 @@ const useTransactionStore = create((set) => ({
   },
 }));
 
-export default useTransactionStore; // Default export
+export default useTransactionStore;

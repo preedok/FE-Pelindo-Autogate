@@ -10,10 +10,10 @@ const TransactionPage = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore(); 
+  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore();
 
   useEffect(() => {
-    fetchHeader(); 
+    fetchHeader();
   }, [fetchHeader]);
 
   const handleRowClick = async (ticket) => {
@@ -35,10 +35,10 @@ const TransactionPage = () => {
       {error && <Typography color="error">{error}</Typography>}
       <Breadcrombss menu={"Transaction"} submenu={"Transaction"} />
       <ContentCard>
-        <Box sx={{ my: 4 }}>
+        <Box sx={{ my: 1 }}>
           <TransactionHeaderTable
             data={transactionHeader}
-            onFetchData={fetchHeader} 
+            onFetchData={fetchHeader}
             onRowClick={handleRowClick}
           />
           <TransactionDetailModal

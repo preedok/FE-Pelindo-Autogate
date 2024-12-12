@@ -5,8 +5,9 @@ import {
   Button,
   Tabs,
   Tab,
-  Select,
-  MenuItem,
+  FormControl,
+  InputLabel,
+  Input,
 } from "@mui/material";
 import CustomTable from "../../../../components/specialized/CustomTable";
 import TransactionDetail from "./TransactionDetail";
@@ -20,18 +21,6 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   const [tabValue, setTabValue] = useState(0);
   const [branchCode, setBranchCode] = useState("4100");
   const [terminalCode, setTerminalCode] = useState("41001");
-
-  const branchCodes = [
-    { value: "4100", label: "Branch 4100" },
-    { value: "4101", label: "Branch 4101" },
-    // tambahkan lebih banyak branch code jika perlu
-  ];
-
-  const terminalCodes = [
-    { value: "41001", label: "Terminal 41001" },
-    { value: "41002", label: "Terminal 41002" },
-    // tambahkan lebih banyak terminal code jika perlu
-  ];
 
   useEffect(() => {
     setLoading(true);
@@ -101,53 +90,50 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   };
 
   return (
-    <Box>
-      <Tabs
-        value={tabValue}
-        onChange={handleTabChange}
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <Tab label="Import" />
-        <Tab label="Export" />
-      </Tabs>
-
-      <Box display="flex" justifyContent="flex-end" marginBottom={2}>
-        <Select
-          label="Branch Code"
-          value={branchCode}
-          onChange={handleBranchCodeChange}
-          sx={{ width: "200px", marginRight: 2 }}
+    <div className="mx-2">
+      <div className="mb-5">
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="primary"
         >
-          {branchCodes.map((branchCode) => (
-            <MenuItem key={branchCode.value} value={branchCode.value}>
-              {branchCode.label}
-            </MenuItem>
-          ))}
-        </Select>
+          <Tab label="Import" />
+          <Tab label="Export" />
+        </Tabs>
+      </div>
 
-        <Select
-          label="Terminal Code"
-          value={terminalCode}
-          onChange={handleTerminalCodeChange}
-          sx={{ width: "200px", marginRight: 2 }}
-        >
-          {terminalCodes.map((terminalCode) => (
-            <MenuItem key={terminalCode.value} value={terminalCode.value}>
-              {terminalCode.label}
-            </MenuItem>
-          ))}
-        </Select>
+      <div className="flex gap-3 my-2">
+        <div className="flex flex-col w-1/2">
+          <label className="text-sm font-medium text-gray-700">Branch Code</label>
+          <input
+            type="text"
+            value={branchCode}
+            onChange={handleBranchCodeChange}
+            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
 
-        <TextField
-          label="Search"
-          variant="outlined"
-          size="small"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ width: "200px" }}
-        />
-      </Box>
+        <div className="flex flex-col w-1/2">
+          <label className="text-sm font-medium text-gray-700">Terminal Code</label>
+          <input
+            type="text"
+            value={terminalCode}
+            onChange={handleTerminalCodeChange}
+            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="flex flex-col w-1/2">
+          <label className="text-sm font-medium text-gray-700">Search</label>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+      </div>
 
       <CustomTable
         columns={columns}
@@ -173,7 +159,7 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
 
       {/* Render the TransactionDetail modal */}
       <TransactionDetail noTiket={noTiket} onClose={() => setNoTiket(null)} />
-    </Box>
+    </div>
   );
 };
 
