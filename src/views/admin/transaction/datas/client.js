@@ -37,16 +37,8 @@ export const fetchTransactionDetail = async (noTiket) => {
       start: 0,
       draw: 1,
       search: "",
-      order: [
-        {
-          column: 0,
-          dir: "DESC",
-          name: "NO_VIN",
-        },
-      ],
-      columns: [
-        { data: "NO_VIN", name: "NO_VIN", searchable: true, orderable: true },
-      ],
+      order: null,
+      columns: null,
     }),
   });
   return response.json();
