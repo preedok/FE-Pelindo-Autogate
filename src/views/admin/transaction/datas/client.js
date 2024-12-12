@@ -1,6 +1,6 @@
 const API_URL = "https://ptosc-integration-api.pelindo.co.id/AMS";
 
-export const fetchTransactionHeader = async (branchCode, terminalCode, direction) => {
+export const fetchTransactionHeader = async (branchCode, terminalCode, search, direction) => {
   const response = await fetch(`${API_URL}/GetAMSTransactionHeaderDT`, {
     method: "POST",
     headers: {
@@ -14,7 +14,7 @@ export const fetchTransactionHeader = async (branchCode, terminalCode, direction
       length: 10,
       start: 0,
       draw: 1,
-      search: "",
+      search,
       order: null,
       columns: null,
     }),
@@ -22,7 +22,7 @@ export const fetchTransactionHeader = async (branchCode, terminalCode, direction
   return response.json();
 };
 
-export const fetchTransactionDetail = async (noTiket) => {
+export const fetchTransactionDetail = async (noTiket, branchCode, terminalCode) => {
   const response = await fetch(`${API_URL}/GetAMSTransactionDetailDT`, {
     method: "POST",
     headers: {
@@ -30,9 +30,9 @@ export const fetchTransactionDetail = async (noTiket) => {
       Authorization: "Basic " + btoa("autogate:#m4ritime6atew4y"),
     },
     body: JSON.stringify({
-      branchCode: "4100",
-      terminalCode: "41001",
-      noTiket: noTiket,
+      branchCode,
+      terminalCode,
+      noTiket,
       length: 10,
       start: 0,
       draw: 1,

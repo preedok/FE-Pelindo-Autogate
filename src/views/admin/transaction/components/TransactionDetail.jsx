@@ -6,30 +6,18 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import CustomTable from '../../../../components/specialized/CustomTable'; 
-
+import CustomTable from '../../../../components/specialized/CustomTable';
 import useTransactionStore from "../datas/store";
 
-const TransactionDetail = ({ noTiket, onClose }) => {
+const TransactionDetail = ({ noTiket, branchCode, terminalCode, onClose }) => {
   const { transactionDetail, fetchDetail } = useTransactionStore();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (noTiket) {
-      fetchDetail(noTiket);
+      setLoading(true);
+      fetchDetail(noTiket, branchCode, terminalCode).finally(() => setLoading(false));
     }
-  }, [noTiket, fetchDetail]);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+  }, [noTiket, fetchDetail, branchCode, terminalCode]);
   const columns = [
     { id: 'NO_VIN', label: 'No VIN', minWidth: 100 },
     { id: 'KATEGORI_CAR', label: 'Kategori Car', minWidth: 100 },
@@ -37,7 +25,6 @@ const TransactionDetail = ({ noTiket, onClose }) => {
     { id: 'JENIS_CAR', label: 'Jenis Car', minWidth: 100 },
     { id: 'NM_UNIT', label: 'Nama Unit', minWidth: 100 },
   ];
-
   return (
     <Modal open={Boolean(noTiket)} onClose={onClose}>
       <div
@@ -66,12 +53,8 @@ const TransactionDetail = ({ noTiket, onClose }) => {
 
         <CustomTable
           columns={columns}
-          loading={false}
+          loading={loading}
           rows={transactionDetail}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </div>
     </Modal>

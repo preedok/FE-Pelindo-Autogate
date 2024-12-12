@@ -10,12 +10,10 @@ const TransactionPage = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore();
-
+  const { fetchHeader, transactionHeader, fetchDetail } = useTransactionStore(); 
   useEffect(() => {
-    fetchHeader();
+    fetchHeader(); 
   }, [fetchHeader]);
-
   const handleRowClick = async (ticket) => {
     setSelectedTicket(ticket);
     setLoading(true);
@@ -28,17 +26,16 @@ const TransactionPage = () => {
       setLoading(false);
     }
   };
-
   return (
     <section className="p-6 mx-5 mt-[78px] rounded-lg w-full">
       {loading && <Typography>Loading...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
       <Breadcrombss menu={"Transaction"} submenu={"Transaction"} />
       <ContentCard>
-        <Box sx={{ my: 1 }}>
+        <Box sx={{ my: 4 }}>
           <TransactionHeaderTable
             data={transactionHeader}
-            onFetchData={fetchHeader}
+            onFetchData={fetchHeader} 
             onRowClick={handleRowClick}
           />
           <TransactionDetailModal

@@ -5,14 +5,13 @@ import {
   Button,
   Tabs,
   Tab,
-  FormControl,
-  InputLabel,
-  Input,
 } from "@mui/material";
 import CustomTable from "../../../../components/specialized/CustomTable";
 import TransactionDetail from "./TransactionDetail";
+import useTransactionStore from "../datas/store";
 
-const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
+const TransactionHeaderTable = () => {
+  const { transactionHeader, fetchHeader } = useTransactionStore();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,27 +22,8 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
   const [terminalCode, setTerminalCode] = useState("41001");
 
   useEffect(() => {
-    setLoading(true);
-    onFetchData({
-      branchCode,
-      terminalCode,
-      direction: tabValue === 0 ? "IMPORT" : "EXPORT",
-      length: rowsPerPage,
-      start: page * rowsPerPage,
-      draw: 1,
-      search: searchTerm,
-      order: null,
-      columns: null,
-    }).finally(() => setLoading(false));
-  }, [
-    page,
-    rowsPerPage,
-    searchTerm,
-    tabValue,
-    branchCode,
-    terminalCode,
-    onFetchData,
-  ]);
+    fetchHeader(branchCode, terminalCode, searchTerm, tabValue === 0 ? "IMPORT" : "EXPORT");
+  }, [branchCode, terminalCode, searchTerm, tabValue, fetchHeader]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,14 +33,6 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const filteredData = data.filter((row) =>
-    Object.values(row).some(
-      (value) =>
-        value !== null &&
-        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
 
   const columns = [
     { id: "NOPOL", label: "Vehicle Number", minWidth: 100 },
@@ -81,64 +53,46 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
     setPage(0);
   };
 
-  const handleBranchCodeChange = (event) => {
-    setBranchCode(event.target.value);
-  };
-
-  const handleTerminalCodeChange = (event) => {
-    setTerminalCode(event.target.value);
-  };
-
   return (
-    <div className="mx-2">
-      <div className="mb-5">
+    <Box>
+      <div className="mb-3">
         <Tabs
           value={tabValue}
           onChange={handleTabChange}
-          indicatorColor="primary"
+          indicator Color="primary"
           textColor="primary"
         >
           <Tab label="Import" />
           <Tab label="Export" />
         </Tabs>
       </div>
-
-      <div className="flex gap-3 my-2">
-        <div className="flex flex-col w-1/2">
-          <label className="text-sm font-medium text-gray-700">Branch Code</label>
-          <input
-            type="text"
-            value={branchCode}
-            onChange={handleBranchCodeChange}
-            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <div className="flex flex-col w-1/2">
-          <label className="text-sm font-medium text-gray-700">Terminal Code</label>
-          <input
-            type="text"
-            value={terminalCode}
-            onChange={handleTerminalCodeChange}
-            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <div className="flex flex-col w-1/2">
-          <label className="text-sm font-medium text-gray-700">Search</label>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full p-2 pl-5 text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
+      <div className="mb-4 flex space-x-4">
+        <input
+          type="text"
+          placeholder="Branch Code"
+          value={branchCode}
+          onChange={(e) => setBranchCode(e.target.value)}
+          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Terminal Code"
+          value={terminalCode}
+          onChange={(e) => setTerminalCode(e.target.value)}
+          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="border w-full border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-
       <CustomTable
         columns={columns}
         loading={loading}
-        rows={filteredData.map((row) => ({
+        rows={transactionHeader.map((row) => ({
           ...row,
           DETAIL: (
             <Button
@@ -158,8 +112,8 @@ const TransactionHeaderTable = ({ data, onFetchData, onRowClick }) => {
       />
 
       {/* Render the TransactionDetail modal */}
-      <TransactionDetail noTiket={noTiket} onClose={() => setNoTiket(null)} />
-    </div>
+      <TransactionDetail noTiket={noTiket} branchCode={branchCode} terminalCode={terminalCode} onClose={() => setNoTiket(null)} />
+    </Box>
   );
 };
 
