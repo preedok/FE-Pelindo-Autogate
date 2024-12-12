@@ -51,11 +51,8 @@ const TransactionTable = () => {
     try {
       const data = await fetchDashboardTransactionDetail(noTiket);
       console.log("Fetched transaction detail data:", data);
-      if (data && data.ResponseData && Array.isArray(data.ResponseData)) {
-        setDetailData(data.ResponseData);
-      } else {
-        setDetailData([]);
-      }
+      setDetailData(data?.ResponseData);
+      console.log('hdadad', data?.ResponseData)
       setOpenModal(true);
     } catch (error) {
       console.error("Error fetching transaction detail:", error);
@@ -105,7 +102,7 @@ const TransactionTable = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 400,
+          width: 1200,
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4
@@ -113,7 +110,7 @@ const TransactionTable = () => {
           <Typography variant="h6" component="h2">
             Detail Information
           </Typography>
-          {detailData.length > 0 ? (
+          {detailData && detailData.length > 0 ? (
             <div>
               {detailData.map((item, index) => (
                 <div key={index}>
