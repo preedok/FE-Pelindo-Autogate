@@ -10,38 +10,13 @@ export const fetchTransactionHeader = async () => {
     body: JSON.stringify({
       branchCode: "4100",
       terminalCode: "41001",
-      direction: "RCV",
+      direction: "IMPORT",
       length: 10,
       start: 0,
       draw: 1,
       search: "",
-      order: [
-        {
-          column: 2,
-          dir: "DESC",
-          name: "JUMLAH_VIN",
-        },
-      ],
-      columns: [
-        {
-          data: "TGL_GATE_IN",
-          name: "TGL_GATE_IN",
-          searchable: true,
-          orderable: true,
-        },
-        {
-          data: "TGL_GATE_OUT",
-          name: "TGL_GATE_OUT",
-          searchable: true,
-          orderable: true,
-        },
-        {
-          data: "JUMLAH_VIN",
-          name: "JUMLAH_VIN",
-          searchable: true,
-          orderable: true,
-        },
-      ],
+      order: null,
+      columns: null,
     }),
   });
   return response.json();
