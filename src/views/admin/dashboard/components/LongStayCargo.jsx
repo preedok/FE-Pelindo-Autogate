@@ -39,20 +39,6 @@ const LongStayCargo = () => {
       <div className="mb-4 flex space-x-4">
         <input
           type="text"
-          placeholder="Branch Code"
-          value={branchCode}
-          onChange={(e) => setBranchCode(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Terminal Code"
-          value={terminalCode}
-          onChange={(e) => setTerminalCode(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

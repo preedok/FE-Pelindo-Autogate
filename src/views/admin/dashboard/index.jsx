@@ -13,12 +13,12 @@ const Dashboard = () => {
       <ContentCard>
         <GateInOut />
         <Paper sx={{ p: 2 }}>
-          <Typography variant="h6">Long Stay Cargo</Typography>
-          <LongStayCargo />
-        </Paper>
-        <Paper sx={{ p: 2 }}>
           <Typography variant="h6">Dashboard Transaction</Typography>
           <TransactionTable />
+        </Paper>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="h6">Long Stay Cargo</Typography>
+          <LongStayCargo />
         </Paper>
       </ContentCard>
     </section>
