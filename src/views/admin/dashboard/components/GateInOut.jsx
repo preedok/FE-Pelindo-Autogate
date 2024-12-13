@@ -142,6 +142,63 @@ const GateInOut = () => {
             </div>
           </StyledCard>
         ))}
+        {dashboardTransaction.map((transaction, index) => (
+          <StyledCard key={index} className="mt-4 w-full">
+            <div className="flex justify-between items-center mb-4">
+              <StyledButton variant="contained" color={isLiveCapture ? "primary" : "secondary"} onClick={() => setIsLiveCapture(!isLiveCapture)}>
+                {isLiveCapture ? "Live Capture" : "Live Stream"}
+              </StyledButton>
+              <Typography variant="h5">{transaction.TGL_GATE_IN}</Typography>
+              <Typography variant="h5">{activeTab === 0 ? "Gate In" : "Gate Out"}</Typography>
+            </div>
+
+            {isLiveCapture ? (
+              <Carousel>
+                {carouselItems.map((item) => (
+                  <div key={item.id}>
+                    <img src={item.image} alt={`Carousel ${item.id}`} className="w-full h-28 object-cover rounded-lg" />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <LiveStreamImages onSwitch={(item) => console.log(`Switching to Image ${item}`)} />
+            )}
+
+            <div className="mt-4 flex gap-2">
+              <div>
+                <Typography variant="body1"><strong>Visit ID</strong></Typography>
+                <Typography variant="body1"><strong>Nomor TID</strong></Typography>
+                <Typography variant="body1"><strong>Jumlah VIN</strong></Typography>
+                <Typography variant="body1"><strong>Tipe Dokumen</strong></Typography>
+                <Typography variant="body1"><strong>Keterangan</strong></Typography>
+                <Typography variant="body1"><strong>No. Polisi Truk</strong></Typography>
+              </div>
+              <div>
+                <Typography variant="body1"><strong>:</strong></Typography>
+                <Typography variant="body1"><strong>:</strong></Typography>
+                <Typography variant="body1"><strong>:</strong></Typography>
+                <Typography variant="body1"><strong>:</strong></Typography>
+                <Typography variant="body1"><strong>:</strong></Typography>
+                <Typography variant="body1"><strong>:</strong></Typography>
+              </div>
+              <div>
+                <Typography variant="body1"><strong>{transaction.NO_TIKET}</strong></Typography>
+                <Typography variant="body1"><strong>{transaction.NO_UID}</strong></Typography>
+                <Typography variant="body1"><strong>{transaction.JUMLAH_VIN}</strong></Typography>
+                <Typography variant="body1"><strong>{transaction.NAMA_DOC_BC || '-'}</strong></Typography>
+                <Typography variant="body1"><strong>GIN</strong></Typography>
+                <Typography variant="body1"><strong>{transaction.NOPOL}</strong></Typography>
+              </div>
+            </div>
+
+            <div className="mt-4 flex justify-between">
+              <div className="flex space-x-4">
+                <StyledButton variant="contained" onClick={() => setOpenDetailModal(true)}>Detail</StyledButton>
+                <StyledButton variant="contained" color="success" onClick={() => setOpenPortalModal(true)}>Open Portal</StyledButton>
+              </div>
+            </div>
+          </StyledCard>
+        ))}
       </div>
 
       <Dialog open={openDetailModal} onClose={() => setOpenDetailModal(false)} maxWidth="lg" fullWidth>
