@@ -64,7 +64,7 @@ export const getLongStayCargo = async (branchCode, terminalCode, search) => {
       body: JSON.stringify({
         branchCode,
         terminalCode,
-        length: 10,
+        length: 9999,
         start: 0,
         draw: 1,
         search,
